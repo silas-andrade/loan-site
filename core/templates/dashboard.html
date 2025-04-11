@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GECL - Painel Principal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <img src="logo.png" class="logo-small" alt="Logo GECL" />
+    <h1>Grêmio Estudantil Carlos Lamarca</h1>
+    <button onclick="logout()">Sair</button>
+  </header>
+
+  <nav>
+    <button onclick="showSection('emprestimos')">📦 Empréstimos</button>
+    <button onclick="showSection('sobre')">ℹ️ Sobre</button>
+    <button onclick="showSection('mensagens')">✉️ Mensagens</button>
+  </nav>
+
+  <main>
+    <section id="emprestimos" class="page-section">
+      <h2>Solicitação de Itens</h2>
+      <p>Selecione o item e o tempo de empréstimo (em horas):</p>
+      <select id="itemSelecionado">
+        <option value="bola_volei">Bola de Vôlei</option>
+        <option value="bola_futsal">Bola de Futsal</option>
+        <option value="livro">Livro Acadêmico</option>
+      </select>
+      <input type="number" id="tempoUso" placeholder="Tempo (horas)" min="1" />
+      <button onclick="solicitarItem()">Solicitar</button>
+      <div id="listaEmprestimos"></div>
+    </section>
+
+    <section id="sobre" class="page-section" style="display:none;">
+      <h2>Sobre o GECL</h2>
+      <p>O Grêmio Estudantil Carlos Lamarca representa os alunos do Instituto Federal e atua em diversas áreas como esporte, cultura, educação e política estudantil.</p>
+      <p>Presidente atual: Lucas</p>
+    </section>
+
+    <section id="mensagens" class="page-section" style="display:none;">
+      <h2>Enviar mensagem para um membro</h2>
+      <input type="email" id="destinatario" placeholder="Email do destinatário" />
+      <textarea id="mensagem" placeholder="Digite sua mensagem aqui"></textarea>
+      <button onclick="enviarMensagem()">Enviar</button>
+    </section>
+  </main>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
