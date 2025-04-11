@@ -1,1 +1,0 @@
-# GECL-Empréstimos

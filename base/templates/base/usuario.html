@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Usuários - Painel Grêmio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="hidden md:flex flex-col w-64 bg-white shadow-lg p-4 space-y-6">
+      <h2 class="text-xl font-bold">Painel do Grêmio</h2>
+      <nav class="flex flex-col space-y-2">
+        <a href="/adm/indexAdm.html" class="flex items-center gap-2 font-semibold"><i data-lucide="clipboard-list" class="w-5 h-5"></i>Solicitações</a>
+        <a href="/adm/material.html" class="flex items-center gap-2"><i data-lucide="archive" class="w-5 h-5"></i>Materiais</a>
+        <a href="/adm/usuario.html" class="flex items-center gap-2  font-bold"><i data-lucide="users" class="w-5 h-5"></i>Usuários</a>
+        <a href="/adm/conf.html" class="flex items-center gap-2"><i data-lucide="settings" class="w-5 h-5"></i>Configurações</a>
+      </nav>
+    </aside>
+    
+
+    <!-- Conteúdo principal -->
+    <main class="flex-1 p-6 mt-10 md:mt-0 w-full">
+      <div class="max-w-5xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center">Usuários Cadastrados</h1>
+
+        <!-- Grêmio Estudantil -->
+        <section class="mb-10">
+          <h2 class="text-xl font-semibold mb-4">Membros do Grêmio Estudantil</h2>
+          <div class="bg-white rounded-xl shadow-md p-4">
+            <ul class="divide-y divide-gray-200">
+              <li class="py-3">
+                <span class="font-medium">Lucas Oliveira</span> – Presidente<br>
+                <span class="text-sm text-gray-500">lucas.oliveira@gremio.com</span>
+              </li>
+              <li class="py-3">
+                <span class="font-medium">Marina Costa</span> – Tesoureira<br>
+                <span class="text-sm text-gray-500">marina.costa@gremio.com</span>
+              </li>
+              <li class="py-3">
+                <span class="font-medium">Pedro Henrique</span> – Comunicação<br>
+                <span class="text-sm text-gray-500">pedro.henrique@gremio.com</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+      
+<section>
+    <h2 class="text-xl font-semibold mb-4">Alunos por Turma</h2>
+  
+    <!-- Campo de busca -->
+    <div class="mb-6">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Pesquisar turma ex: 1º Ano A"
+        class="w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+        onkeyup="filterTurmas()"
+      />
+    </div>
+  
+    <!-- Container das turmas -->
+    <div id="turmaContainer" class="space-y-6">
+
+
+      <!-- Turma 1º Ano A -->
+      <div class="turma bg-white rounded-xl shadow-md p-4" data-turma="1º Ano A">
+        <h3 class="text-lg font-semibold mb-2">1º Ano A</h3>
+        <ul class="divide-y divide-gray-200">
+          <li class="py-2 flex flex-col md:flex-row md:items-center justify-between gap-2">
+            <div>
+              <span class="font-medium">João Santos</span> —
+              <span class="text-sm text-gray-500">Matrícula: 20230101</span> —
+              <span class="text-sm text-gray-500">joao.santos@gmail.com</span>
+              <p class="text-red-500 text-xs mt-1 hidden status-msg">Usuário bloqueado — não pode realizar empréstimos.</p>
+            </div>
+            <button onclick="toggleBlock(this)" class="bg-red-500 hover:bg-red-600 text-white text-sm px-4 py-1 rounded-xl">Bloquear</button>
+          </li>
+          <li class="py-2 flex flex-col md:flex-row md:items-center justify-between gap-2">
+            <div>
+              <span class="font-medium">Ana Júlia</span> —
+              <span class="text-sm text-gray-500">Matrícula: 20230102</span> —
+              <span class="text-sm text-gray-500">ana.julia@gmail.com</span>
+              <p class="text-red-500 text-xs mt-1 hidden status-msg">Usuário bloqueado — não pode realizar empréstimos.</p>
+            </div>
+            <button onclick="toggleBlock(this)" class="bg-red-500 hover:bg-red-600 text-white text-sm px-4 py-1 rounded-xl">Bloquear</button>
+          </li>
+        </ul>
+      </div>
+  
+    </div>
+  </section>
+  
+
+
+
+  <script>
+
+  lucide.createIcons();
+
+  function toggleBlock(button) {
+    const msg = button.parentElement.querySelector(".status-msg");
+    const isBlocked = button.textContent === "Desbloquear";
+
+    if (isBlocked) {
+      button.textContent = "Bloquear";
+      button.classList.remove("bg-green-500", "hover:bg-green-600");
+      button.classList.add("bg-red-500", "hover:bg-red-600");
+      msg.classList.add("hidden");
+    } else {
+      button.textContent = "Desbloquear";
+      button.classList.remove("bg-red-500", "hover:bg-red-600");
+      button.classList.add("bg-green-500", "hover:bg-green-600");
+      msg.classList.remove("hidden");
+    }
+  }
+
+  function filterTurmas() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const turmas = document.querySelectorAll(".turma");
+
+    turmas.forEach(turma => {
+      const nomeTurma = turma.getAttribute("data-turma").toLowerCase();
+      turma.style.display = nomeTurma.includes(input) ? "block" : "none";
+    });
+  }
+
+
+  </script>
+
+</body>
+</html>
