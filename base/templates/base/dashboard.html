@@ -1,14 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GECL - Painel Principal</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
 </head>
 <body>
   <header>
-    <img src="logo.png" class="logo-small" alt="Logo GECL" />
+    <img src="{% static 'media/logo.png' %}" class="logo-small" alt="Logo GECL" />
     <h1>Grêmio Estudantil Carlos Lamarca</h1>
     <button onclick="logout()">Sair</button>
   </header>
@@ -47,6 +48,6 @@
     </section>
   </main>
 
-  <script src="dashboard.js"></script>
+  <script src="{% static 'media/dashboard.js' %}"></script>
 </body>
 </html>
