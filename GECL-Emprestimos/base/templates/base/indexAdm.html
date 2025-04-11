@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>Painel Admin - Grêmio</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+<!-- Layout principal -->
+<div class="flex min-h-screen">
+
+  <!-- Sidebar (desktop) -->
+  <aside class="hidden md:flex flex-col w-64 bg-white shadow-lg p-4 space-y-6">
+    <h2 class="text-xl font-bold">Painel do Grêmio</h2>
+    <nav class="flex flex-col space-y-2">
+      <a href="/adm/indexAdm.html" class="flex items-center gap-2 font-bold"><i data-lucide="clipboard-list" class="w-5 h-5"></i>Solicitações</a>
+      <a href="/adm/material.html" class="flex items-center gap-2"><i data-lucide="archive" class="w-5 h-5"></i>Materiais</a>
+      <a href="/adm/usuario.html" class="flex items-center gap-2  "><i data-lucide="users" class="w-5 h-5"></i>Usuários</a>
+      <a href="/adm/conf.html" class="flex items-center gap-2"><i data-lucide="settings" class="w-5 h-5"></i>Configurações</a>
+    </nav>
+  </aside>
+
+
+
+
+
+    <main class="flex-1 p-6 mt-16 md:mt-0">
+      <h1 class="text-2xl font-bold mb-4">Bem-vindo(a) ao Painel</h1>
+      <p class="mb-6">Aqui você pode gerenciar os empréstimos, materiais e muito mais.</p>
+    
+<!-- Conteúdo dividido em 2 colunas -->
+<div class="md:flex md:gap-6">
+
+<div class="flex-1 space-y-10">
+
+<!-- Seção de Pedidos -->
+<section aria-labelledby="pedidos-pendentes">
+  <h2 id="pedidos-pendentes" class="text-xl font-semibold mb-3">Pedidos Pendentes</h2>
+
+  <div class="flex flex-col gap-3 w-full max-w-xl">
+    <div class="flex flex-col gap-3 w-full max-w-xl">
+      <!-- Card 1 -->
+      <div class="bg-white rounded-2xl shadow-md p-4 flex items-start gap-4">
+        <img src="https://i.pinimg.com/originals/9d/6b/6a/9d6b6a0bf0c45cb3e5a85fd72e545dae.jpg" alt="Foto do usuário" class="w-16 h-16 rounded-full object-cover" />
+        <div class="flex flex-col text-sm text-gray-700 w-full">
+          <div class="flex justify-between items-center">
+            <h2 class="text-lg font-semibold">Lucas Silva</h2>
+            <span class="text-xs text-gray-500">3º Ano C</span>
+          </div>
+          <div class="mt-2 space-y-1">
+            <div class="flex items-center gap-2">
+              <i data-lucide="box" class="w-4 h-4 text-blue-500"></i>
+              <span><strong>Item:</strong> Projetor</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="calendar" class="w-4 h-4 text-green-500"></i>
+              <span><strong>Data:</strong> 10/04/2025 às 14:30</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="clock" class="w-4 h-4 text-purple-500"></i>
+              <span><strong>Duração:</strong> 3 dias</span>
+            </div>
+          </div>
+          <div class="mt-4 flex gap-2">
+            <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-xl text-sm font-medium">Aceitar</button>
+            <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-xl text-sm font-medium">Recusar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white rounded-2xl shadow-md p-4 flex items-start gap-4">
+        <img src="https://i.pinimg.com/originals/9d/6b/6a/9d6b6a0bf0c45cb3e5a85fd72e545dae.jpg" alt="Foto do usuário" class="w-16 h-16 rounded-full object-cover" />
+        <div class="flex flex-col text-sm text-gray-700 w-full">
+          <div class="flex justify-between items-center">
+            <h2 class="text-lg font-semibold">Ana Beatriz</h2>
+            <span class="text-xs text-gray-500">2º Ano C</span>
+          </div>
+          <div class="mt-2 space-y-1">
+            <div class="flex items-center gap-2">
+              <i data-lucide="box" class="w-4 h-4 text-blue-500"></i>
+              <span><strong>Item:</strong> Notebook</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="calendar" class="w-4 h-4 text-green-500"></i>
+              <span><strong>Data:</strong> 10/04/2025 às 13:00</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="clock" class="w-4 h-4 text-purple-500"></i>
+              <span><strong>Duração:</strong> 2 dias</span>
+            </div>
+          </div>
+          <div class="mt-4 flex gap-2">
+            <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-xl text-sm font-medium">Aceitar</button>
+            <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-xl text-sm font-medium">Recusar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  
+
+
+
+          <!-- Seção de Confirmação de Devoluções -->
+<section aria-labelledby="confirmacao-devolucao" class="mt-10">
+  <h2 id="confirmacao-devolucao" class="text-xl font-semibold mb-3">Confirmação de Devoluções</h2>
+
+  <div class="flex flex-col gap-3 w-full max-w-xl">
+
+    <!-- Card de confirmação -->
+    <article class="bg-white rounded-2xl shadow-md p-4 flex items-start gap-4">
+      <img src="https://i.pinimg.com/736x/31/18/f3/3118f3adc75d6c3688fdb59d1afaeac4.jpg" alt="Foto do usuário" class="w-16 h-16 rounded-full object-cover" />
+      <div class="flex flex-col text-sm text-gray-700 w-full">
+        <div class="flex justify-between items-center">
+          <h3 class="text-lg font-semibold">Isabela Souza</h3>
+          <span class="text-xs text-gray-500">3º Ano A</span>
+        </div>
+        <p class="text-xs text-gray-500">Matrícula: 202204569</p>
+        <div class="mt-2 space-y-1">
+          <div class="flex items-center gap-2">
+            <i data-lucide="box" class="w-4 h-4 text-blue-500"></i>
+            <span><strong>Item:</strong> Tripé</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <i data-lucide="calendar-check" class="w-4 h-4 text-green-600"></i>
+            <span><strong>Devolvido em:</strong> 10/04/2025 às 17:20</span>
+          </div>
+        </div>
+        <div class="mt-4 flex gap-2">
+          <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-xl text-sm font-medium">Confirmar</button>
+          <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-xl text-sm font-medium">Recusar</button>
+        </div>
+      </div>
+    </article>
+
+   
+
+
+  </div>
+</section>  
+</div>
+    
+
+
+  <!-- Coluna direita: Materiais Emprestados -->
+  <aside class="w-full md:w-1/2 mt-10 md:mt-0">
+    <h2 class="text-xl font-semibold mb-3">Materiais Emprestados</h2>
+
+    <div class="flex flex-col gap-3">
+      <!-- Card de empréstimo -->
+
+
+      <article class="bg-white rounded-2xl shadow-md p-4 flex items-start gap-4">
+        <img src="https://i.pinimg.com/736x/31/18/f3/3118f3adc75d6c3688fdb59d1afaeac4.jpg" alt="Foto do usuário" class="w-16 h-16 rounded-full object-cover" />
+        <div class="flex flex-col text-sm text-gray-700 w-full">
+          <div class="flex justify-between items-center">
+            <h3 class="text-lg font-semibold">Carlos Henrique</h3>
+            <span class="text-xs text-gray-500">2º Ano B</span>
+          </div>
+          <p class="text-xs text-gray-500">Matrícula: 202301245</p>
+          <div class="mt-2 space-y-1">
+            <div class="flex items-center gap-2">
+              <i data-lucide="box" class="w-4 h-4 text-blue-500"></i>
+              <span><strong>Item:</strong> Caixa de som</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="calendar" class="w-4 h-4 text-green-500"></i>
+              <span><strong>Retirado em:</strong> 09/04/2025 às 09:00</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="calendar-clock" class="w-4 h-4 text-red-500"></i>
+              <span><strong>Devolver até:</strong> 12/04/2025 às 09:00</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      
+    </div>
+  </aside>
+</div>
+</main>
+
+
+  
+
+  
+    
+
+  <script>
+    lucide.createIcons();
+
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.remove('hidden');
+    });
+
+    closeMenu.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+    });
+  </script>
+
+</body>
+</html>
