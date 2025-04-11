@@ -5,19 +5,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GECL - Painel Principal</title>
-  <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+  <link rel="stylesheet" href="{% static 'CSS/dashboard.css' %}">
 </head>
 <body>
   <header>
     <img src="{% static 'media/logo.png' %}" class="logo-small" alt="Logo GECL" />
     <h1>Grêmio Estudantil Carlos Lamarca</h1>
-    <button onclick="logout()">Sair</button>
+
   </header>
 
   <nav>
-    <button onclick="showSection('emprestimos')">📦 Empréstimos</button>
-    <button onclick="showSection('sobre')">ℹ️ Sobre</button>
-    <button onclick="showSection('mensagens')">✉️ Mensagens</button>
+    <button >📦 Empréstimos</button>
+    <button >ℹ️ Sobre</button>
+    <button >✉️ Mensagens</button>
   </nav>
 
   <main>
@@ -30,7 +30,7 @@
         <option value="livro">Livro Acadêmico</option>
       </select>
       <input type="number" id="tempoUso" placeholder="Tempo (horas)" min="1" />
-      <button onclick="solicitarItem()">Solicitar</button>
+
       <div id="listaEmprestimos"></div>
     </section>
 
@@ -44,10 +44,10 @@
       <h2>Enviar mensagem para um membro</h2>
       <input type="email" id="destinatario" placeholder="Email do destinatário" />
       <textarea id="mensagem" placeholder="Digite sua mensagem aqui"></textarea>
-      <button onclick="enviarMensagem()">Enviar</button>
+
     </section>
   </main>
 
-  <script src="{% static 'media/dashboard.js' %}"></script>
+
 </body>
 </html>
