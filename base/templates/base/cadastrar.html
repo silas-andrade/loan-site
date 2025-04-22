@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    {% load widget_tweaks %}
+
+  <div class="bg-white shadow-lg rounded-xl p-8 w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Cadastro</h2>
+
+    {% if messages %}
+      <div class="mb-4 text-red-600 text-sm text-center">
+        {% for message in messages %}
+          <p>{{ message }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="mb-4">
+        <label for="{{ form.nome.id_for_label }}" class="block text-sm font-medium text-gray-700">Nome</label>
+        {{ form.nome|add_class:"mt-1 block w-full px-4 py-2 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+        {% if form.nome.errors %}
+          <p class="text-red-500 text-sm mt-1">{{ form.nome.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <div class="mb-4">
+        <label for="{{ form.matricula.id_for_label }}" class="block text-sm font-medium text-gray-700">Matrícula</label>
+        {{ form.matricula|add_class:"mt-1 block w-full px-4 py-2 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+        {% if form.matricula.errors %}
+          <p class="text-red-500 text-sm mt-1">{{ form.matricula.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <div class="mb-4">
+        <label for="{{ form.ano.id_for_label }}" class="block text-sm font-medium text-gray-700">Ano</label>
+        {{ form.ano|add_class:"mt-1 block w-full px-4 py-2 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+        {% if form.ano.errors %}
+          <p class="text-red-500 text-sm mt-1">{{ form.ano.errors.0 }}</p>
+        {% endif %}
+      </div>
+      
+      <div class="mb-4">
+        <label for="{{ form.turma.id_for_label }}" class="block text-sm font-medium text-gray-700">Turma</label>
+        {{ form.turma|add_class:"mt-1 block w-full px-4 py-2 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+        {% if form.turma.errors %}
+          <p class="text-red-500 text-sm mt-1">{{ form.turma.errors.0 }}</p>
+        {% endif %}
+      </div>
+      
+
+      <div class="mb-4">
+        <label for="{{ form.senha.id_for_label }}" class="block text-sm font-medium text-gray-700">Senha</label>
+        {{ form.senha|add_class:"mt-1 block w-full px-4 py-2 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+        {% if form.senha.errors %}
+          <p class="text-red-500 text-sm mt-1">{{ form.senha.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <div class="mb-6">
+        <label for="{{ form.confirmar_senha.id_for_label }}" class="block text-sm font-medium text-gray-700">Confirmar Senha</label>
+        {{ form.confirmar_senha|add_class:"mt-1 block w-full px-4 py-2 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+        {% if form.confirmar_senha.errors %}
+          <p class="text-red-500 text-sm mt-1">{{ form.confirmar_senha.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <button type="submit"
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
+        Cadastrar
+      </button>
+
+      <div class="text-center mt-4 text-sm">
+        Já tem uma conta? <a href="{% url 'login' %}" class="text-blue-600 hover:underline">Entrar</a>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>
