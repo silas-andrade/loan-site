@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configurações - Grêmio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 relative font-sans">
+
+<!-- Botão para abrir/fechar o sidebar -->
+<button 
+id="toggle-sidebar" 
+class="absolute top-4 left-4 md:hidden p-2 bg-black text-white rounded z-40">
+Menu
+</button>
+
+<div class="flex min-h-screen">
+
+<!-- Sidebar -->
+<aside 
+  id="sidebar" 
+  class="fixed inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition-transform duration-300 flex flex-col w-64 bg-black shadow-lg p-4 space-y-6 z-30">
+  <h2 class="text-xl font-bold text-white">Painel do Grêmio</h2>
+  <nav class="flex flex-col space-y-2">
+    <a href="{% url 'indexAdm' %}" class="flex items-center gap-2  text-white">
+      <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+      Solicitações
+    </a>
+    <a href="{% url 'material' %}" class="flex items-center gap-2 text-white">
+      <i data-lucide="archive" class="w-5 h-5"></i>
+      Materiais
+    </a>
+    <a href="{% url 'lista_usuario' %}" class="flex items-center gap-2 text-white">
+      <i data-lucide="users" class="w-5 h-5"></i>
+      Usuários
+    </a>
+    <a href="{% url 'configuracoes' %}" class="flex items-center gap-2 font-bold text-white">
+      <i data-lucide="settings" class="w-5 h-5"></i>
+      Configurações
+    </a>
+  </nav>
+</aside>
+
+    <!-- Conteúdo principal -->
+    <main class="flex-1 p-6 mt-16 md:mt-0 md:ml-64 w-full">
+      <h1 class="text-3xl font-bold mb-8">Configurações do Sistema</h1>
+
+      <section class="max-w-2xl space-y-6">
+
+        <!-- Aceitar automaticamente -->
+            <form method="POST">
+              {% csrf_token %}
+              <div class="bg-white rounded-2xl shadow-md p-6 flex items-center justify-between">
+                <div>
+                  <h2 class="text-lg font-semibold">Aceitar automaticamente os pedidos</h2>
+                  <p class="text-sm text-gray-500 mt-1">Todos os pedidos serão aprovados sem confirmação manual.</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" name="toggle_auto_aceite" class="sr-only peer" onchange="this.form.submit()" {% if aceitar_automaticamente %}checked{% endif %}>
+                  <div class="w-11 h-6 bg-gray-300 rounded-full peer-checked:bg-green-500 transition-all"></div>
+                  <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-5"></div>
+                </label>
+              </div>
+            </form>
+
+            <!-- Bloquear empréstimos -->
+            <form method="POST">
+              {% csrf_token %}
+              <div class="bg-white rounded-2xl shadow-md p-6 flex items-center justify-between">
+                <div>
+                  <h2 class="text-lg font-semibold">Bloquear todos os empréstimos</h2>
+                  <p class="text-sm text-gray-500 mt-1">Impede que novos pedidos de empréstimo sejam realizados.</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" name="toggle_bloqueio" class="sr-only peer" onchange="this.form.submit()" {% if bloquear_emprestimos %}checked{% endif %}>
+                  <div class="w-11 h-6 bg-gray-300 rounded-full peer-checked:bg-red-500 transition-all"></div>
+                  <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-5"></div>
+                </label>
+              </div>
+            </form>
+
+        
+
+      </section>
+    </main>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    const toggleButton = document.getElementById("toggle-sidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleButton.addEventListener("click", () => {
+      sidebar.classList.toggle("-translate-x-full");
+    });
+  </script>
+
+</body>
+</html>

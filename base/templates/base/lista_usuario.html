@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usuários - Painel Grêmio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 relative">
+
+  <!-- Botão para abrir/fechar o sidebar (visível apenas em telas pequenas) -->
+  <button id="toggle-sidebar" class="absolute top-4 left-4 md:hidden p-2 bg-black text-white rounded z-40">
+    Menu
+  </button>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col w-64 bg-black shadow-lg p-4 space-y-6 z-30">
+    <h2 class="text-xl font-bold text-white">Painel do Grêmio</h2>
+    <nav class="flex flex-col space-y-2">
+      <a href="{% url 'indexAdm' %}" class="flex items-center gap-2 text-white">
+        <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+        Solicitações
+      </a>
+      <a href="{% url 'material' %}" class="flex items-center gap-2 text-white">
+        <i data-lucide="archive" class="w-5 h-5"></i>
+        Materiais
+      </a>
+      <a href="#" class="flex items-center gap-2 font-bold text-white">
+        <i data-lucide="users" class="w-5 h-5"></i>
+        Usuários
+      </a>
+      <a href="{% url 'configuracoes' %}" class="flex items-center gap-2 text-white">
+        <i data-lucide="settings" class="w-5 h-5"></i>
+        Configurações
+      </a>
+    </nav>
+  </aside>
+
+  
+  <div class="flex min-h-screen md:ml-64">
+    <!-- Conteúdo principal -->
+    <main class="flex-1 p-6 mt-10 md:mt-0 w-full">
+      <div class="max-w-5xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center">Usuários Cadastrados</h1>
+
+          <!-- Seção de adm -->
+          <section class="mb-10">
+            <h2 class="text-xl font-semibold mb-4">Grêmio</h2>
+            <div class="bg-white rounded-xl shadow-md p-4">
+              <ul class="divide-y divide-gray-200">
+                {% for admin in usuarios_adm_info %}
+                  <li class="py-3">
+                    <span class="font-medium">{{ admin.usuario.nome }}</span> — 
+                    <span class="text-sm text-gray-500">Matrícula: {{ admin.usuario.matricula }}</span><br>
+                    
+                  </li>
+                {% empty %}
+                  <p class="text-center text-gray-500">Nenhum superusuário encontrado.</p>
+                {% endfor %}
+              </ul>
+            </div>
+          </section>
+
+           <!-- Total de Usuários -->
+        <div class="text-center mt-6">
+          <p class="text-lg font-semibold">Total de Usuários: {{ total_usuarios }}</p>
+        </div>
+        
+        <!-- Campo de busca -->
+        <div class="mb-6">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Pesquisar por nome ou turma ex: Ana ou 1º Ano A"
+            class="w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+            onkeyup="filterUsuarios()"
+          />
+        </div>
+
+      
+
+        <!-- Usuários por Turma -->
+        <section>
+          <h2 class="text-xl font-semibold mb-4">Usuários por Turma</h2>
+
+          <!-- Container das turmas -->
+          <div id="turmaContainer" class="space-y-6">
+            {% for turma, usuarios in usuarios_por_turma.items %}
+              <div class="turma bg-white rounded-xl shadow-md p-4" data-turma="{{ turma }}">
+                <h3 class="text-lg font-semibold mb-2">{{ turma }}</h3>
+                <ul class="divide-y divide-gray-200">
+                  {% for usuario in usuarios %}
+                    <li class="py-2 flex flex-col md:flex-row md:items-center justify-between gap-2">
+                      <div>
+                        <span class="font-medium">{{ usuario.nome }}</span> — 
+                        <span class="text-sm text-gray-500">Matrícula: {{ usuario.matricula }}</span> — 
+                        {% if usuario.email %}
+                          <span class="text-sm text-gray-500">{{ usuario.email }}</span>
+                        {% endif %}
+                        {% if usuario.bloqueado %}
+                          <p class="text-red-500 text-xs mt-1 status-msg">Usuário bloqueado — não pode realizar empréstimos.</p>
+                        {% endif %}
+                      </div>
+                      <form method="POST" action="{% url 'bloquear_usuario' usuario.id %}">
+                        {% csrf_token %}
+                        <button type="submit"
+                          class="text-white text-sm px-4 py-1 rounded-xl
+                            {% if usuario.bloqueado %}bg-green-500 hover:bg-green-600{% else %}bg-red-500 hover:bg-red-600{% endif %}">
+                          {% if usuario.bloqueado %}Desbloquear{% else %}Bloquear{% endif %}
+                        </button>
+                      </form>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% empty %}
+              <p class="text-center text-gray-500">Nenhum usuário cadastrado.</p>
+            {% endfor %}
+          </div>
+        </section>
+
+       
+      </div>
+    </main>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    const toggleButton = document.getElementById("toggle-sidebar");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleButton.addEventListener("click", () => {
+      sidebar.classList.toggle("-translate-x-full");
+    });
+
+    function filterUsuarios() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const turmas = document.querySelectorAll(".turma");
+
+      turmas.forEach(turma => {
+        const turmaNome = turma.getAttribute("data-turma").toLowerCase();
+        const usuarios = turma.querySelectorAll("li");
+        let showTurma = false;
+
+        usuarios.forEach(usuario => {
+          const text = usuario.innerText.toLowerCase();
+          const match = text.includes(input) || turmaNome.includes(input);
+          usuario.style.display = match ? "flex" : "none";
+          if (match) showTurma = true;
+        });
+
+        turma.style.display = showTurma ? "block" : "none";
+      });
+    }
+  </script>
+</body>
+</html>
