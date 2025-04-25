@@ -1,0 +1,97 @@
+{% load static %}
+<style>
+    
+/*Rodape*/
+.footer {
+  background-color: #1a1a1a;
+ 
+  padding: 20px 0;
+  text-align: center;
+  margin-top: 50px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.footer-image {
+  width: 250px;
+  height: auto;
+  margin: 0;
+}
+
+.footer-logo-jif {
+  width: 250px;
+  height: auto;
+  margin: 0;
+}
+
+.footer hr {
+  margin: 20px auto;
+  border-color: #fff;
+  width: 80%;
+}
+
+.footer p {
+  margin-top: 20px;
+  font-size: 14px;
+  color:#fff;
+}
+
+/* Tornando o rodapé responsivo */
+@media (max-width: 768px) {
+  .footer{
+    margin-top: 200px;
+  }
+  .footer-container {
+ 
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-logo-jif {
+    display: none !important;
+  }
+
+  .footer-image {
+    width: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-image {
+    width: 200px;
+  }
+
+  .footer p {
+    font-size: 12px;
+  }
+}
+  
+</style>
+
+<footer class="footer">
+  <div class="footer-container">
+          <a href="https://www.ifbaiano.edu.br/unidades/santaines/" target=”ifbaiano csi”><img src="{% static 'img/LOGO_IFBAIANO.png' %}" alt="Logo do Rodapé" class="footer-image" ></a>
+          <a href="/"><img src="{% static 'img/logo.png' %}" alt="Logo do Rodapé JIFB" class="footer-logo-ge" style="width:250px;height:250px;"></a>
+  </div>
+      <hr>
+    <div>
+        <p >©  Criado por Guilherme Henrique e Silas Andrade | IF Baiano Campus Santa Inês</p>
+    </div>
+</footer>

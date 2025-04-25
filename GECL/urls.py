@@ -1,23 +1,28 @@
-"""
-URL configuration for GECL project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path, include
 
+from usuarios.views import RegisterPage, LoginPage
+from core.views import HomePage
+from emprestimos.views import SolicitarEmprestimo, VerMeusEmprestimosPedidos, FazerDevolucao
+from moderator.views import DashboardAdmin, VerAlterarMateriais
+
 urlpatterns = [
     path('admin/', admin.site.urls), 
-    path('', include('base.urls')), 
+    
+    # App Core
+    path('', HomePage, name='home'),
+
+    # App usuarios
+    path('registrar/', RegisterPage, name='registrar'),
+    path('login/', LoginPage, name='login'),
+
+    # App Empréstimos
+    path('solicitar/', SolicitarEmprestimo, name='solicitar'),
+    path('meus-emprestimos/', VerMeusEmprestimosPedidos, name='meus-emprestimos'),
+    path('devolver/', FazerDevolucao, name='devolver'),
+
+    # App Moderator
+    path('dashboard/', DashboardAdmin, name='dashboard'),
+    path('ver-materiais/', VerAlterarMateriais, name='ver-materiais'),
+
 ]

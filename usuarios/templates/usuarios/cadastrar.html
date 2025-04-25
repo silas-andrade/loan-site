@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+
+
+    {% if messages %}
+      <div class="mb-4 text-red-600 text-sm text-center">
+        {% for message in messages %}
+          <p>{{ message }}</p>
+          {{ form.errors }} e {{ alunoForm.errors }}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="POST">
+      {% csrf_token %}
+
+      {{form.as_p}}
+      {{alunoForm.as_p}}
+
+      <button type="submit"
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
+        Cadastrar
+      </button>
+      <div class="text-center mt-4 text-sm">
+        Já tem uma conta? <a href="{% url 'login' %}" class="text-blue-600 hover:underline">Entrar</a>
+      </div>
+     
+    </form>
+
+
+</body>
+</html>
