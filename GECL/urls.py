@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 
-from usuarios.views import RegisterPage, LoginPage
+from usuarios.views import RegisterPage, LoginPage, LogoutUser
 from core.views import HomePage
 from emprestimos.views import SolicitarEmprestimo, VerMeusEmprestimosPedidos, FazerDevolucao
 from moderator.views import DashboardAdmin, VerAlterarMateriais, AceitarDevolucao, AceitarPedido, RecusarPedido
@@ -13,8 +13,9 @@ urlpatterns = [
     path('', HomePage, name='home'),
 
     # App usuarios
-    path('registrar/', RegisterPage, name='registrar'),
+    path('registrar/', RegisterPage, name='cadastrar'),
     path('login/', LoginPage, name='login'),
+    path('logout/', LogoutUser, name='logout'),
 
     # App Empréstimos
     path('solicitar/', SolicitarEmprestimo, name='solicitar'),

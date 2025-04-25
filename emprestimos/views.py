@@ -7,7 +7,7 @@ from .models import Emprestimo
 from usuarios.models import Aluno
 
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def SolicitarEmprestimo(request):
     form = PedidoForm()
 
@@ -27,22 +27,23 @@ def SolicitarEmprestimo(request):
     return render(request, "emprestimos/solicitar_emprestimos.html", context)
 
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def VerMeusEmprestimosPedidos(request):
+    aluno = Aluno.objects.get(user=request.user)
     emprestimos = list(
-         Emprestimo.objects.filter(aluno=Aluno.objects.filter(user=request.user))
+         Emprestimo.objects.filter(aluno=Aluno.objects.get(user=request.user))
          )
-    pedido = list(
-         Pedido.objects.filter(aluno=Aluno.objects.filter(user=request.user))
+    pedidos = list(
+         Pedido.objects.filter(aluno=aluno)
          )
     context = {
         'emprestimos':emprestimos,
-        'pedido':pedido
+        'pedidos':pedidos
     }
     return render(request, "emprestimos/ver_emprestimos.html", context)
 
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def FazerDevolucao(request, pk):
     emprestimo = Emprestimo.objects.filter(id=pk)
 

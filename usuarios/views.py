@@ -53,11 +53,13 @@ def LoginPage(request):
         return redirect('home')
 
     if request.method == 'POST':
-        username = request.POST.get('username').lower()
+        matricula = request.POST.get('matricula')
         password = request.POST.get('password')
 
         try:
+            username = Aluno.objects.get(matricula=matricula).user.username
             user = User.objects.get(username=username)
+            print(user)
         except:
             messages.error(request, 'Usuário não existe!')
 
@@ -75,7 +77,7 @@ def LoginPage(request):
     return render(request, "usuarios/login.html", context)
 
 
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 def LogoutUser(request):
     logout(request)
     return redirect('home')

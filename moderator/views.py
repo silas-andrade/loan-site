@@ -6,7 +6,7 @@ from .models import Material, Pedido
 from emprestimos.models import Emprestimo
 
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def DashboardAdmin(request):
     """
     Mostra aos moderadores todos os pedidos pendentes 
@@ -22,7 +22,7 @@ def DashboardAdmin(request):
         return render(request, "moderator/dashboard.html", context)
 
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def VerAlterarMateriais(request):
     if request.user.is_staff:
         materias = Material.objects.all()
@@ -34,7 +34,7 @@ def VerAlterarMateriais(request):
         return HttpResponse("<h1>Você não pode entrar aqui!</h1>")
     
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def AceitarDevolucao(request, pk):
     if request.user.is_staff == False:
         return redirect('home')
@@ -47,7 +47,7 @@ def AceitarDevolucao(request, pk):
         return redirect('dashboard')
 
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def AceitarPedido(request, pk):
     if request.user.is_staff == False:
         return redirect('home')
@@ -66,7 +66,7 @@ def AceitarPedido(request, pk):
         
 
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def RecusarPedido(request, pk):
     if request.user.is_staff == False:
         return redirect('home')
