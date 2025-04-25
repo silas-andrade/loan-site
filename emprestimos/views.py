@@ -20,6 +20,7 @@ def SolicitarEmprestimo(request):
                 material=form.material,
                 data_prevista=form.data_prevista,
             )
+            return redirect('home')
     context = {
         'form':form
     }

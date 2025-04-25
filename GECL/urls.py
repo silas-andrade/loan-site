@@ -1,10 +1,10 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 
 from usuarios.views import RegisterPage, LoginPage
 from core.views import HomePage
 from emprestimos.views import SolicitarEmprestimo, VerMeusEmprestimosPedidos, FazerDevolucao
-from moderator.views import DashboardAdmin, VerAlterarMateriais
+from moderator.views import DashboardAdmin, VerAlterarMateriais, AceitarDevolucao, AceitarPedido, RecusarPedido
 
 urlpatterns = [
     path('admin/', admin.site.urls), 
@@ -24,5 +24,9 @@ urlpatterns = [
     # App Moderator
     path('dashboard/', DashboardAdmin, name='dashboard'),
     path('ver-materiais/', VerAlterarMateriais, name='ver-materiais'),
+    path('aceitar-devolucao/<int:pk>', AceitarDevolucao, name='aceitar-devolucao'),
+    path('aceitar-pedido/<int:pk>', AceitarPedido, name='aceitar-pedido'),
+    path('recusar-pedido/<int:pk>', RecusarPedido, name='recusar-pedido'),
+
 
 ]
