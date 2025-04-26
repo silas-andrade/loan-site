@@ -81,22 +81,3 @@ def LoginPage(request):
 def LogoutUser(request):
     logout(request)
     return redirect('home')
-
-
-@login_required(login_url='/login/')
-def DashboardAluno(request):
-    context = {
-            'pedidos_pendentes':Pedido.objects.filter(
-                aluno=Aluno.objects.get(user=request.user), 
-                pendência=True
-                ),
-            'pedidos_respondidos':Pedido.objects.filter(
-                aluno=Aluno.objects.get(user=request.user), 
-                pendência=False
-                ),
-            'emprestimos':Emprestimo.objects.filter(
-                aluno=Aluno.objects.get(user=request.user), 
-                devolvido=False
-                ),
-       }
-    return render(request, "usuarios/dashboard.html", context)

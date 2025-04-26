@@ -9,7 +9,6 @@ class AlunoForm(ModelForm):
         fields = '__all__'
         exclude = ['user', 'bloqueado', 'moderador']
         widgets = {
-            'nome_completo':forms.TextInput(attrs={'class': 'form-control'}),
             'matricula':forms.TextInput(attrs={'class': 'form-control'}),
             'curso':forms.TextInput(attrs={'class': 'form-control'}),
         }

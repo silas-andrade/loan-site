@@ -1,109 +1,129 @@
-{% extends 'main.html' %}
 {% load static %}
-
-{% block title %}Painel Administrativo{% endblock %}
-
-{% block extra_css %}
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-
-{% endblock %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel Administrativo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
 <body class="bg-gray-100 text-gray-800">
 
-    <!-- Botão para mostrar/ocultar o menu lateral em telas pequenas -->
-    <button 
-        id="toggle-sidebar" 
-        class="fixed top-4 left-4 md:hidden z-50 bg-black text-white p-2 rounded">
-        Menu
-    </button>
-    
-    <div class="flex min-h-screen">
-    
-        {% include 'sidebar.html' %}
-    
+<!-- Botão para mostrar/ocultar o menu lateral em telas pequenas -->
+<button 
+    id="toggle-sidebar" 
+    class="fixed top-4 left-4 md:hidden z-50 bg-black text-white p-2 rounded">
+    Menu
+</button>
 
-        <main class="flex-1 px-6 py-8 mt-16 md:mt-0 space-y-12">
-    
-            <h1 class="text-3xl font-bold">Bem-vindo(a) ao Painel Administrativo</h1>
-    
-            <section>
-                <h2 class="text-2xl font-semibold mb-4">Pedidos Pendentes</h2>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        {% for pedido in pedidos %}
-                            <div class="bg-white rounded-xl shadow p-4 space-y-2">
-                                <p><strong>Aluno:</strong> {{ pedido.aluno.nome_completo }}</p>
-                                <p><strong>Matrícula:</strong> {{ pedido.aluno.matricula }}</p>
-                                <p><strong>Item:</strong> {{ pedido.material.nome }}</p>
-                                <p><strong>Quantidade:</strong> {{ pedido.quantidade }}</p>
-                                <p><strong>Data e hora de Empréstimo:</strong> {{ pedido.criado|date:"d/m/y H:i:s" }}</p>
-                                <p><strong>Data e hora prevista de Devolução:</strong> {{ pedido.data_prevista|date:"d/m/y H:i:s" }}</p>
-    
-                                <div class="flex gap-2 mt-2">
-                                    <form method="post" action="{% url 'aceitar-pedido' pedido.id %}">
-                                        {% csrf_token %}
-                                        <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded">Aceitar</button>
-                                    </form>
-                                    <form method="post" action="{% url 'recusar-pedido' pedido.id %}">
-                                        {% csrf_token %}
-                                        <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded">Recusar</button>
-                                    </form>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-            </section>
+<div class="flex min-h-screen">
 
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-300 w-64 bg-black p-4 text-white z-40 space-y-6">
+        <h2 class="text-xl font-bold">Painel Grêmio</h2>
+        <nav class="flex flex-col space-y-3">
+            <a href="{% url 'indexAdm' %}" class="flex items-center font-bold gap-2 text-white">
+                <i data-lucide="clipboard-list" class="w-5 h-5"></i> Solicitações
+            </a>
+            <a href="{% url 'material' %}" class="flex items-center gap-2 text-white">
+                <i data-lucide="archive" class="w-5 h-5"></i> Materiais
+            </a>
+            <a href="{% url 'lista_usuario' %}" class="flex items-center gap-2 text-white">
+                <i data-lucide="users" class="w-5 h-5"></i> Usuários
+            </a>
+            <a href="{% url 'configuracoes' %}" class="flex items-center gap-2 text-white">
+                <i data-lucide="settings" class="w-5 h-5"></i> Configurações
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <main class="flex-1 px-6 py-8 mt-16 md:mt-0 space-y-12">
+
+        <h1 class="text-3xl font-bold">Bem-vindo(a) ao Painel Administrativo</h1>
+
+        <!-- PEDIDOS PENDENTES -->
         <section>
-            <h2 class="text-2xl font-semibold mb-4">Empréstimos esperando devolução</h2>
+            <h2 class="text-2xl font-semibold mb-4">Pedidos Pendentes</h2>
+            {% if pedidos_pendentes %}
                 <div class="grid md:grid-cols-2 gap-4">
-                    {% for emprestimo in emprestimos_esperando_devolucao %}
+                    {% for pedido in pedidos_pendentes %}
                         <div class="bg-white rounded-xl shadow p-4 space-y-2">
-                            <p><strong>Usuário:</strong> {{ emprestimo.aluno.nome_completo }}</p>
-                            <p><strong>Matrícula:</strong> {{ emprestimo.aluno.matricula }}</p>
-                            <p><strong>Item:</strong> {{ emprestimo.material.nome }}</p>
-                            <p><strong>Data Prevista de Devolução:</strong> {{ emprestimo.data_prevista|date:"d/m/y H:i:s" }}</p>
-                            <p class="text-sm font-semibold"></p>
-                                
-                        </div>
-                    {% endfor %}
-                </div>
-            <!-- <p class="text-gray-500">Nenhuma devolução prevista.</p> -->
-        </section>
-        <section>
-            <h2 class="text-2xl font-semibold mb-4">Empréstimos esperando confimarção de devolução</h2>
-                <div class="grid md:grid-cols-2 gap-4">
-                    {% for emprestimo in emprestimos_esperando_confimacao_de_devolucao %}
-                        <div class="bg-white rounded-xl shadow p-4 space-y-2">
-                            <p><strong>Usuário:</strong> {{ emprestimo.aluno.nome_completo }}</p>
-                            <p><strong>Matrícula:</strong> {{ emprestimo.aluno.matricula }}</p>
-                            <p><strong>Item:</strong> {{ emprestimo.material.nome }}</p>
-                            <p><strong>Data e hora devolvida:</strong> {{ emprestimo.data_devolvida|date:"d/m/y H:i:s" }}</p>
-                            <p class="text-sm font-semibold"></p>
-                                
+                            <p><strong>Usuário:</strong> {{ pedido.usuario.nome }}</p>
+                            <p><strong>Turma:</strong> {{ pedido.usuario.turma }}</p>
+                            <p><strong>Item:</strong> {{ pedido.material.nome }}</p>
+                            <p><strong>Quantidade:</strong> {{ pedido.quantidade }}</p>
+                            <p><strong>Data de Empréstimo:</strong> {{ pedido.data_emprestimo|date:"d/m/Y" }}</p>
+                            <p><strong>Data Prevista de Devolução:</strong> {{ pedido.data_prevista_devolucao|date:"d/m/Y" }}</p>
+
                             <div class="flex gap-2 mt-2">
-                                <form method="post" action="{% url 'aceitar-devolucao' emprestimo.id %}">
+                                <form method="post" action="{% url 'aceitar_pedido' pedido.id %}">
                                     {% csrf_token %}
-                                    <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded">Confirmar</button>
+                                    <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded">Aceitar</button>
+                                </form>
+                                <form method="post" action="{% url 'recusar_pedido' pedido.id %}">
+                                    {% csrf_token %}
+                                    <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded">Recusar</button>
                                 </form>
                             </div>
-
                         </div>
                     {% endfor %}
                 </div>
-            <!-- <p class="text-gray-500">Nenhuma devolução prevista.</p> -->
+            {% else %}
+                <p class="text-gray-500">Nenhum pedido pendente.</p>
+            {% endif %}
         </section>
-    
-    
-        </main>
-    </div>
-</body>
-{% endblock %}
 
-{% block extra_scripts %}
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+        <!-- DEVOLUÇÕES MAIS PRÓXIMAS -->
+<section>
+  <h2 class="text-2xl font-semibold mb-4">Próximas Devoluções</h2>
+  {% if pedidos_aceitos %}
+      <div class="grid md:grid-cols-2 gap-4">
+          {% for pedido in pedidos_aceitos|dictsort:"data_prevista_devolucao" %}
+              <div class="bg-white rounded-xl shadow p-4 space-y-2">
+                  <p><strong>Usuário:</strong> {{ pedido.usuario.nome }}</p>
+                  <p><strong>Item:</strong> {{ pedido.material.nome }}</p>
+                  <p><strong>Data Prevista de Devolução:</strong> {{ pedido.data_prevista_devolucao|date:"d/m/Y" }}</p>
+                  <p class="text-sm font-semibold 
+                    {% if pedido.dias_restantes == 0 %}
+                        text-yellow-600
+                    {% elif pedido.dias_restantes < 0 %}
+                        text-red-600
+                    {% else %}
+                        text-green-600
+                    {% endif %}
+                ">
+                    {% if pedido.dias_restantes == 0 %}
+                        Entrega hoje!
+                    {% elif pedido.dias_restantes < 0 %}
+                        Atrasado há {{ pedido.dias_restantes|add:"0"|floatformat:"0"|slice:"1:" }} dia(s)
+                    {% else %}
+                        Faltam {{ pedido.dias_restantes }} dia(s)
+                    {% endif %}
+                </p>
+
+
+                  {% if pedido.dias_restantes <= 0 %}
+                      <form method="post" action="{% url 'confirmar_devolucao' pedido.id %}">
+                          {% csrf_token %}
+                          <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded mt-2">
+                              Confirmar Devolução
+                          </button>
+                      </form>
+                  {% endif %}
+              </div>
+          {% endfor %}
+      </div>
+  {% else %}
+      <p class="text-gray-500">Nenhuma devolução prevista.</p>
+  {% endif %}
+</section>
+
+
+    </main>
+</div>
+
 <script>
     const toggleButton = document.getElementById('toggle-sidebar');
     const sidebar = document.getElementById('sidebar');
@@ -113,5 +133,11 @@
     });
 
     lucide.createIcons();
+
+
+    
+    
 </script>
-{% endblock %}
+
+</body>
+</html>
