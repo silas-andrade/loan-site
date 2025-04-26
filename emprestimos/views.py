@@ -45,11 +45,12 @@ def VerMeusEmprestimosPedidos(request):
 
 @login_required(login_url='/login/')
 def FazerDevolucao(request, pk):
-    emprestimo = Emprestimo.objects.filter(id=pk)
+    emprestimo = Emprestimo.objects.get(id=pk)
 
     if emprestimo.aluno.user == request.user:
         emprestimo.devolvido = True
-        return redirect('home')
+        emprestimo.save()
+        return redirect('dashboard-aluno')
     else:
         return HttpResponse('<h1>Você não pode fazer isso!</h1>')
 
