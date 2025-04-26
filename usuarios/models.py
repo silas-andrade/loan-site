@@ -8,7 +8,9 @@ from django.db import models
 class Aluno(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    matricula = models.CharField(max_length=15, blank=True, null=True)
+    nome_completo = models.CharField(max_length=255)
+
+    matricula = models.CharField(max_length=15, unique=True)
 
     curso = models.CharField(blank=True, null=True, max_length=15)
 
