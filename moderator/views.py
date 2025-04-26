@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .models import Material, Pedido
 from emprestimos.models import Emprestimo
+from usuarios.models import Aluno
 
 
 @login_required(login_url='/login/')
@@ -13,17 +14,55 @@ def DashboardAdmin(request):
     e materias disponíveis  
     """
     if request.user.is_staff == False:
-        return redirect('home')
+        return redirect('dashboard-aluno')
+    
     else:
         context = {
-            'pedidos':Pedido.objects.filter(aprovado=False),
+            'pedidos':Pedido.objects.filter(pendência=True),
             'materiais':Material.objects.filter(quantidade_disponivel__gte=1),
+            'emprestimos_esperando_devolucao':Emprestimo.objects.filter(devolvido=False),
+            'emprestimos_esperando_confimacao_de_devolucao':Emprestimo.objects.filter(devolvido=True, devolução_confirmada=False),
         }
         return render(request, "moderator/dashboard.html", context)
 
 
 @login_required(login_url='/login/')
-def VerAlterarMateriais(request):
+def GerenciarAlunos(request):
+    if request.user.is_staff == False:
+        return redirect('dashboard-aluno')
+    
+    else:
+        context = {
+            'alunos':Aluno.objects.filter(moderador=False),
+            'admins':Aluno.objects.filter(moderador=True)
+        }
+        
+
+        return render(request, "moderator/lista_usuario.html", context)
+
+
+
+@login_required(login_url='/login/')
+def BloquearUsuarios(request, pk):
+    if request.user.is_staff == False:
+        return redirect('dashboard-aluno')
+    
+    else:
+        aluno = Aluno.objects.get(id=pk)
+
+        if aluno.bloqueado:
+            aluno.bloqueado = False
+        else:
+            aluno.bloqueado = True
+
+        aluno.save()
+    return JsonResponse({
+            'aluno':aluno.nome_completo,
+            'bloqueado':aluno.bloqueado
+        })
+
+@login_required(login_url='/login/')
+def VerMateriais(request):
     if request.user.is_staff:
         materias = Material.objects.all()
         context = {
@@ -35,6 +74,15 @@ def VerAlterarMateriais(request):
     
 
 @login_required(login_url='/login/')
+def RemoverMateriais(request, pk):
+    if request.user.is_staff:
+        materiais = Material.objects.delete(id=pk)
+        return redirect('dashboard')
+    else:
+        return HttpResponse("<h1>Você não pode entrar aqui!</h1>")
+
+
+@login_required(login_url='/login/')
 def AceitarDevolucao(request, pk):
     if request.user.is_staff == False:
         return redirect('home')
@@ -43,6 +91,12 @@ def AceitarDevolucao(request, pk):
         if emprestimo.devolvido == True:
             emprestimo.devolução_confirmada = True
             emprestimo.data_devolvida = datetime.now()
+            emprestimo.save()
+
+            material = Material.objects.get(nome=emprestimo.material)
+            material.quantidade_disponivel += 1
+            material.save()
+
             return redirect('dashboard')
         return redirect('dashboard')
 
@@ -53,16 +107,20 @@ def AceitarPedido(request, pk):
         return redirect('home')
     else:
         pedido = Pedido.objects.get(id=pk)
-        if pedido.pendência == False:
-            pedido.pendência = True
+        if pedido.pendência == True:
+            pedido.pendência = False
             pedido.aprovado = True
+            pedido.save()
             Emprestimo.objects.create(
                 aluno=pedido.aluno,
                 material=pedido.material,
                 data_prevista=pedido.data_prevista,
             )
-            return redirect('home')
-        return redirect('home')
+            material = Material.objects.get(nome=pedido.material)
+            material.quantidade_disponivel -= 1
+            material.save()
+            return redirect('dashboard')
+        return redirect('dashboard')
         
 
 
@@ -72,8 +130,9 @@ def RecusarPedido(request, pk):
         return redirect('home')
     else:
         pedido = Pedido.objects.get(id=pk)
-        if pedido.pendência == False:
-            pedido.pendência = True
+        if pedido.pendência == True:
+            pedido.pendência = False
             pedido.aprovado = False
-            return redirect('home')
-        return redirect('home')
+            pedido.save()
+            return redirect('dashboard')
+        return redirect('dashboard')

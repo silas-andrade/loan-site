@@ -12,7 +12,11 @@ class Material(models.Model):
 class Pedido(models.Model):
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
     material = models.ForeignKey(Material, on_delete=models.CASCADE)
+    quantidade = models.PositiveIntegerField()
     criado = models.DateTimeField(auto_now_add=True)
     data_prevista = models.DateTimeField()
     pendência = models.BooleanField(default=True) 
     aprovado = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.aluno} | {self.material} | {self.pendência} | {self.aprovado}'
