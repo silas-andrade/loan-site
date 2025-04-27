@@ -2,9 +2,19 @@ from django.contrib import admin
 from django.urls import path
 
 from usuarios.views import RegisterPage, LoginPage, LogoutUser, DashboardAluno
-from core.views import HomePage
-from emprestimos.views import SolicitarEmprestimo, VerMeusEmprestimosPedidos, FazerDevolucao
-from moderator.views import DashboardAdmin, VerMateriais, AceitarDevolucao, AceitarPedido, RecusarPedido, RemoverMateriais, BloquearUsuarios, GerenciarAlunos
+from emprestimos.views import SolicitarEmprestimo, FazerDevolucao
+
+from moderator.views import (
+    AceitarDevolucao, 
+    AceitarPedido, 
+    BloquearUsuarios, 
+    DashboardAdmin, 
+    GerenciarAlunos, 
+    RecusarPedido, 
+    RemoverMateriais, 
+    VerMateriais, 
+    VerTodosOsEmprestimos
+    )
 
 urlpatterns = [
     path('admin/', admin.site.urls), 
@@ -18,7 +28,7 @@ urlpatterns = [
 
     # App Empréstimos
     path('solicitar/', SolicitarEmprestimo, name='solicitar'),
-    path('meus-emprestimos/', VerMeusEmprestimosPedidos, name='meus-emprestimos'),
+    #path('meus-emprestimos/', VerMeusEmprestimosPedidos, name='meus-emprestimos'),
     path('devolver/<str:pk>', FazerDevolucao, name='devolver'),
 
     # App Moderator
@@ -32,6 +42,10 @@ urlpatterns = [
     
     path('aceitar-pedido/<str:pk>', AceitarPedido, name='aceitar-pedido'),
     path('recusar-pedido/<str:pk>', RecusarPedido, name='recusar-pedido'),
+    
+    
+    path('todos-emprestimos/', VerTodosOsEmprestimos, name='todos-emprestimos'),
+
 
 
 

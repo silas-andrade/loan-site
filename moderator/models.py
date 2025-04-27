@@ -20,3 +20,6 @@ class Pedido(models.Model):
 
     def __str__(self):
         return f'{self.aluno} | {self.material} | {self.pendência} | {self.aprovado}'
+    
+    class Meta:
+        ordering = ['-criado']

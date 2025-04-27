@@ -15,3 +15,6 @@ class Emprestimo(models.Model):
 
     def __str__(self):
         return f'{self.aluno} | {self.material} | {self.devolvido} | {self.devolução_confirmada}'
+    
+    class Meta:
+        ordering = ['-created']

@@ -1,18 +1,178 @@
-{% extends 'main.html' %}
 {% load static %}
 
-{% block title %}Grêmio Estudantil{% endblock %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitar Empréstimo</title>
+    <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+        }
 
-{% block extra_css %}
+        .header {
+            background-color: #0056b3;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+        .logo-small {
+            width: 60px;
+            position: absolute;
+            left: 20px;
+            top: 20px;
+        }
 
-{% endblock %}
+        .btn-sair {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            padding: 8px 16px;
+            background-color: #e53935;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-{% block content %}
-<h1>Solicitar empréstimos</h1>
-{% endblock %}
+        .emprestimos-section {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
 
-{% block extra_scripts %}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
-{% endblock %}
+        .emprestimos-section h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        .info {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .btn-enviar {
+            width: 100%;
+            padding: 12px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-enviar:hover {
+            background-color: #155a9b;
+        }
+
+        .mensagens {
+            margin-bottom: 20px;
+        }
+
+        .mensagem {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+
+        .mensagem.success {
+            background-color: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .mensagem.error {
+            background-color: #ffcdd2;
+            color: #c62828;
+        }
+
+        .erro {
+            color: #e53935;
+            font-size: 0.9em;
+            margin-top: 4px;
+        }
+
+        .sem-materiais {
+            text-align: center;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="{% static 'media/logo.png' %}" class="logo-small" alt="Logo GECL" />
+        <h1>Grêmio Estudantil Carlos Lamarca</h1>
+        <a href="/"><button class="btn-sair">Sair</button></a>
+    </header>
+
+    <main>
+        <section class="emprestimos-section">
+            <h2>Solicitar Empréstimo de Material</h2>
+
+            {% if messages %}
+                <div class="mensagens">
+                    {% for message in messages %}
+                        <p class="mensagem {{ message.tags }}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+
+            <form method="post" class="form-emprestimo">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="btn-enviar">Solicitar</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+      // Formulário de configuração
+      const form = document.querySelector('form');
+    
+      // Envio do formulário
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();  // Evita o envio imediato do formulário
+        setTimeout(() => {
+          form.submit();  // Envia o formulário após 1 segundo
+        }, 1000);
+      });
+    </script>
+    
+</body>
+</html>

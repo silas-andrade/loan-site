@@ -9,7 +9,17 @@
 {% endblock %}
 
 {% block content %}
-<div class="flex min-h-screen md:ml-64">
+<body class="bg-gray-100 text-gray-800">
+
+  <!-- Botão para mostrar/ocultar o menu lateral em telas pequenas -->
+  <button 
+      id="toggle-sidebar" 
+      class="fixed top-4 left-4 md:hidden z-50 bg-black text-white p-2 rounded">
+      Menu
+  </button>
+  <div class="flex min-h-screen">
+  {% include 'sidebar.html' %}
+
   <main class="flex-1 p-6 mt-16 md:mt-0 w-full">
     <div class="max-w-4xl mx-auto space-y-6">
 

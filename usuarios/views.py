@@ -35,7 +35,7 @@ def RegisterPage(request):
 
 
             login(request, user)
-            return redirect('home')
+            return redirect('dashboard-aluno')
         else:
             messages.error(request, 'Ocorreu um erro durante o registro!')
 
@@ -50,7 +50,7 @@ def RegisterPage(request):
 def LoginPage(request):
 
     if request.user.is_authenticated:
-        return redirect('home')
+        return redirect('dashboard-aluno')
 
     if request.method == 'POST':
         matricula = request.POST.get('matricula')
@@ -67,7 +67,7 @@ def LoginPage(request):
 
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('dashboard-aluno')
         else:
             messages.error(request, 'Nome de usuário OU senha estão erradas!')
 
@@ -80,7 +80,7 @@ def LoginPage(request):
 @login_required(login_url='/login/')
 def LogoutUser(request):
     logout(request)
-    return redirect('home')
+    return redirect('dashboard-aluno')
 
 
 @login_required(login_url='/login/')
@@ -92,11 +92,10 @@ def DashboardAluno(request):
                 ),
             'pedidos_respondidos':Pedido.objects.filter(
                 aluno=Aluno.objects.get(user=request.user), 
-                pendência=False
+                pendência=False,
                 ),
             'emprestimos':Emprestimo.objects.filter(
                 aluno=Aluno.objects.get(user=request.user), 
-                devolvido=False
                 ),
        }
     return render(request, "usuarios/dashboard.html", context)

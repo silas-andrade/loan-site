@@ -41,6 +41,23 @@ def GerenciarAlunos(request):
         return render(request, "moderator/lista_usuario.html", context)
 
 
+@login_required(login_url='/login/')
+def VerTodosOsEmprestimos(request):
+    aluno = Aluno.objects.get(user=request.user)
+    emprestimos = list(
+         Emprestimo.objects.filter(aluno=Aluno.objects.get(user=request.user))
+         )
+    pedidos = list(
+         Pedido.objects.filter(aluno=aluno)
+         )
+    context = {
+        'emprestimos':emprestimos,
+        'pedidos':pedidos
+    }
+    return render(request, "moderator/ver_emprestimos.html", context)
+
+
+
 
 @login_required(login_url='/login/')
 def BloquearUsuarios(request, pk):
@@ -94,7 +111,7 @@ def AceitarDevolucao(request, pk):
             emprestimo.save()
 
             material = Material.objects.get(nome=emprestimo.material)
-            material.quantidade_disponivel += 1
+            material.quantidade_disponivel += emprestimo.quantidade
             material.save()
 
             return redirect('dashboard')
@@ -104,23 +121,26 @@ def AceitarDevolucao(request, pk):
 @login_required(login_url='/login/')
 def AceitarPedido(request, pk):
     if request.user.is_staff == False:
-        return redirect('home')
+        return redirect('dashboard-aluno')
     else:
         pedido = Pedido.objects.get(id=pk)
-        if pedido.pendência == True:
+        material = Material.objects.get(nome=pedido.material.nome)
+        if pedido.pendência == True and material.quantidade_disponivel >= pedido.quantidade:
             pedido.pendência = False
             pedido.aprovado = True
             pedido.save()
+
+            material.quantidade_disponivel -= pedido.quantidade
+            material.save()
+            
             Emprestimo.objects.create(
                 aluno=pedido.aluno,
-                material=pedido.material,
+                material=material,
                 data_prevista=pedido.data_prevista,
+                quantidade=pedido.quantidade
             )
-            material = Material.objects.get(nome=pedido.material)
-            material.quantidade_disponivel -= 1
-            material.save()
             return redirect('dashboard')
-        return redirect('dashboard')
+        return HttpResponse('<h1>Ou o pedido já foi respondido ou o quantidade de material<br>pedido é maior do que a quantidade disponível</h1>')
         
 
 

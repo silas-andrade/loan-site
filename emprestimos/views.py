@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from moderator.forms import PedidoForm
-from moderator.models import Pedido
+from moderator.models import Pedido, Material
 from .models import Emprestimo
 from usuarios.models import Aluno
 
@@ -12,35 +12,21 @@ def SolicitarEmprestimo(request):
     form = PedidoForm()
 
     if request.method == 'POST':
+        aluno = Aluno.objects.get(user=request.user)
         form = PedidoForm(request.POST)
         if form.is_valid:
-            form.save(commit=False)
-            Pedido.objects.create(
-                aluno=Aluno.objects.get(user=request.user),
-                material=form.material,
-                data_prevista=form.data_prevista,
-            )
-            return redirect('home')
+            if aluno.bloqueado == False:
+                pedido = form.save(commit=False)
+                pedido.aluno = aluno
+                pedido.save()
+                return redirect('dashboard-aluno')
+            else:
+                return HttpResponse('<h1>Você está proibido de fazer empréstimos</h1>')
+        
     context = {
-        'form':form
+        'form':form,   
     }
     return render(request, "emprestimos/solicitar_emprestimos.html", context)
-
-
-@login_required(login_url='/login/')
-def VerMeusEmprestimosPedidos(request):
-    aluno = Aluno.objects.get(user=request.user)
-    emprestimos = list(
-         Emprestimo.objects.filter(aluno=Aluno.objects.get(user=request.user))
-         )
-    pedidos = list(
-         Pedido.objects.filter(aluno=aluno)
-         )
-    context = {
-        'emprestimos':emprestimos,
-        'pedidos':pedidos
-    }
-    return render(request, "emprestimos/ver_emprestimos.html", context)
 
 
 @login_required(login_url='/login/')
@@ -53,4 +39,3 @@ def FazerDevolucao(request, pk):
         return redirect('dashboard-aluno')
     else:
         return HttpResponse('<h1>Você não pode fazer isso!</h1>')
-
