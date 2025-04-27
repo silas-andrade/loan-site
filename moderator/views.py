@@ -4,7 +4,7 @@ from datetime import datetime
 from django.http import HttpResponse, JsonResponse
 from .models import Material, Pedido
 from emprestimos.models import Emprestimo
-from usuarios.models import Aluno
+from accounts.models import Aluno
 
 
 @login_required(login_url='/login/')

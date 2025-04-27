@@ -1,5 +1,5 @@
 from django.db import models
-from usuarios.models import *
+from accounts.models import *
 from moderator.models import *
 # Create your models here.
 

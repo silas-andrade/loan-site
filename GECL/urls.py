@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 
-from usuarios.views import RegisterPage, LoginPage, LogoutUser, DashboardAluno
+from accounts.views import RegisterPage, LoginPage, LogoutUser, DashboardAluno
 from emprestimos.views import SolicitarEmprestimo, FazerDevolucao
 
 from moderator.views import (

@@ -51,8 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core.apps.CoreConfig',
     'emprestimos.apps.EmprestimosConfig',
-    'usuarios.apps.UsuariosConfig',
     'moderator.apps.ModeratorConfig',
+    'accounts.apps.AccountsConfig',
 
 ]
 

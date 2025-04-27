@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Aluno
+from accounts.models import Aluno
 from django import forms
 
 

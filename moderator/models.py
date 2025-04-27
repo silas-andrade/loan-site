@@ -1,5 +1,5 @@
 from django.db import models
-from usuarios.models import Aluno
+from accounts.models import Aluno
 # Create your models here.
 class Material(models.Model):
     nome = models.CharField(max_length=50)

@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from moderator.forms import PedidoForm
 from moderator.models import Pedido, Material
 from .models import Emprestimo
-from usuarios.models import Aluno
+from accounts.models import Aluno
 
 
 @login_required(login_url='/login/')
