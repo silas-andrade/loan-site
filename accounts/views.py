@@ -44,7 +44,7 @@ def RegisterPage(request):
         'form':form,
         'alunoForm': alunoForm,
     }
-    return render(request, 'usuarios/cadastrar.html', context)
+    return render(request, 'accounts/cadastrar.html', context)
 
 
 def LoginPage(request):
@@ -74,7 +74,7 @@ def LoginPage(request):
     context = {
 
     }
-    return render(request, "usuarios/login.html", context)
+    return render(request, "accounts/login.html", context)
 
 
 @login_required(login_url='/login/')
@@ -98,4 +98,4 @@ def DashboardAluno(request):
                 aluno=Aluno.objects.get(user=request.user), 
                 ),
        }
-    return render(request, "usuarios/dashboard.html", context)
+    return render(request, "accounts/dashboard.html", context)
