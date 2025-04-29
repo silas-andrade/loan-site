@@ -39,11 +39,7 @@ Para usar GECL-Emprestimos:
 
 ```
 $ cd GECL-Emprestimos
-```
-```
 $ pip install -r requirements.txt
-```
-```
 $ python manage.py runserver
 ```
 
