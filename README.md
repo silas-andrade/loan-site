@@ -38,10 +38,15 @@ $ git clone https://github.com/SilasAndradev/GECL-Emprestimos.git
 Para usar GECL-Emprestimos:
 
 ```
+$ cd GECL-Emprestimos
+```
+```
 $ pip install -r requirements.txt
 ```
+```
+$ python manage.py runserver
+```
 
-Adicione comandos de execução e exemplos que você acha que os usuários acharão úteis. Forneça uma referência de opções para pontos de bônus!
 
 ## 📫 Contribuindo para GECL-Emprestimos
 
