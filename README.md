@@ -17,33 +17,6 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [x] Criar um sistema de Pedido de empréstimo
 - [x] Criar um sistema de devolução do empréstimo
 
-## 💻 Pré-requisitos
-
-Antes de começar, verifique se você atendeu aos seguintes requisitos:
-
-- Você instalou `Python 3.13.2`
-<!-- Você tem uma máquina `<Windows / Linux / Mac>`. Indique qual sistema operacional é compatível / não compatível.
-- Você leu `<guia / link / documentação_relacionada_ao_projeto>`.>-->
-
-## 🚀 Instalando GECL-Emprestimos
-
-Para instalar o GECL-Emprestimos, siga estas etapas:
-
-```
-$ git clone https://github.com/SilasAndradev/GECL-Emprestimos.git
-```
-
-## ☕ Usando GECL-Emprestimos
-
-Para usar GECL-Emprestimos:
-
-```
-$ cd GECL-Emprestimos
-$ pip install -r requirements.txt
-$ python manage.py runserver
-```
-
-
 ## 📫 Contribuindo para GECL-Emprestimos
 
 Para contribuir com GECL-Emprestimos, siga estas etapas:
