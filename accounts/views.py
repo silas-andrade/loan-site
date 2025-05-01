@@ -58,8 +58,6 @@ def LoginPage(request):
 
         try:
             username = Aluno.objects.get(matricula=matricula).user.username
-            user = User.objects.get(username=username)
-            print(user)
         except:
             messages.error(request, 'Usuário não existe!')
 
