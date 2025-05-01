@@ -15,7 +15,7 @@ def SolicitarEmprestimo(request):
         aluno = Aluno.objects.get(user=request.user)
         form = PedidoForm(request.POST)
         if form.is_valid:
-            if aluno.bloqueado == False:
+            if not aluno.bloqueado:
                 pedido = form.save(commit=False)
                 pedido.aluno = aluno
                 pedido.save()
