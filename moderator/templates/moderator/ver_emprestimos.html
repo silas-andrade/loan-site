@@ -34,6 +34,7 @@
                                 <p><strong>Curso:</strong> {{ emprestimo.aluno.curso }}</p>
                                 <p><strong>Item:</strong> {{ emprestimo.material.nome }}</p>
                                 <p><strong>Quantidade:</strong> {{ emprestimo.quantidade }}</p>
+                                <p><strong>Administrador que aprovou:</strong> {{ emprestimo.quem_aprovou.nome_completo }}</p>
                                 <p><strong>Data e hora da criação do pedido:</strong> {{ emprestimo.created|date:"d/m/y H:i:s" }}</p>
                                 
                                 {% if emprestimo.devolvido == False %} 

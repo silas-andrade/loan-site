@@ -137,7 +137,8 @@ def AceitarPedido(request, pk):
                 aluno=pedido.aluno,
                 material=material,
                 data_prevista=pedido.data_prevista,
-                quantidade=pedido.quantidade
+                quantidade=pedido.quantidade,
+                quem_aprovou=Aluno.objects.get(user=request.user)
             )
             return redirect('dashboard')
         return HttpResponse('<h1>Ou o pedido já foi respondido ou o quantidade de material<br>pedido é maior do que a quantidade disponível</h1>')

@@ -1,11 +1,13 @@
 from django.db import models
 from accounts.models import *
 from moderator.models import *
+from django.db.models import F, Q
 # Create your models here.
 
 class Emprestimo(models.Model):
-    aluno = models.ForeignKey(Aluno, on_delete=models.DO_NOTHING)
+    aluno = models.ForeignKey(Aluno, on_delete=models.DO_NOTHING, related_name='aluno')
     material = models.ForeignKey(Material, on_delete=models.DO_NOTHING)
+    quem_aprovou = models.ForeignKey(Aluno, on_delete=models.DO_NOTHING, related_name='aprovou_o_pedido', null=True, blank=True)
     quantidade = models.PositiveIntegerField()
     data_prevista = models.DateTimeField()
     created = models.DateTimeField(auto_now_add=True)
@@ -18,3 +20,6 @@ class Emprestimo(models.Model):
     
     class Meta:
         ordering = ['-created']
+        """constraints = [
+            CheckConstraint(name='not_same', check=~Q(first=F('second')))
+        ] """  
