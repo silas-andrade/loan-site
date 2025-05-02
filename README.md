@@ -48,7 +48,21 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
     </td> 
   </tr>
 </table>
-
+<table>
+  <tr>
+    <td align="center"> 
+      <a href="https://github.com/LucasmystOS" title="Back-End Developer"> 
+      <img src="https://avatars.githubusercontent.com/u/186697279" width="100px;" alt="Photo by LucasmystOS on GitHub"/>
+      <br> 
+      <sub> 
+        <b>
+          Lucas Da Hora Vieira
+        </b> 
+      </sub> 
+    </a> 
+    </td> 
+  </tr>
+</table>
 ## 📝 Licença
 
 Esse projeto está sob licença. Veja o arquivo [LICENÇA](LICENSE.md) para mais detalhes.
