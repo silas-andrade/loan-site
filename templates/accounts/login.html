@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends 'main.html' %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+{% block title %}Login{% endblock %}
+{% block extra_css %}
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,7 +14,7 @@
             align-items: center;
             height: 100vh;
         }
-
+        
         .login-container {
             background-color: #fff;
             padding: 2em;
@@ -25,22 +23,22 @@
             width: 100%;
             max-width: 400px;
         }
-
+        
         .login-container h2 {
             text-align: center;
             margin-bottom: 1.5em;
             color: #333;
         }
-
+        
         .input-group {
             margin-bottom: 1.2em;
         }
-
+        
         .input-group label {
             font-weight: bold;
             color: #555;
         }
-
+        
         .input-group input {
             width: 100%;
             padding: 10px;
@@ -49,12 +47,12 @@
             box-sizing: border-box;
             font-size: 1em;
         }
-
+        
         .input-group input:focus {
             border-color: #007bff;
             outline: none;
         }
-
+        
         .login-btn {
             width: 100%;
             padding: 12px;
@@ -66,43 +64,42 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-
+        
         .login-btn:hover {
             background-color: #0056b3;
         }
-
+        
         .error-message {
             color: red;
             font-size: 0.9em;
             text-align: center;
             margin-top: 10px;
         }
-
+        
         .signup-link {
             text-align: center;
             margin-top: 1em;
         }
-
+        
         .signup-link a {
             color: #007bff;
             text-decoration: none;
         }
-
+        
         .signup-link a:hover {
             text-decoration: underline;
         }
     </style>
-</head>
+{% endblock %}
 
-<body>
-
+<div>    
     <div class="login-container">
         <h2>Login</h2>
         
         <!-- Exibindo erro de login se necessário -->
         {% if messages %}
-            <div class="error-message">
-                {% for message in messages %}
+        <div class="error-message">
+            {% for message in messages %}
                     <p>{{ message }}</p>
                 {% endfor %}
             </div>
@@ -133,5 +130,4 @@
         </div>
     </div>
 
-</body>
-</html>
+</div>

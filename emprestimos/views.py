@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from moderator.forms import PedidoForm
-from moderator.models import Pedido, Material
 from .models import Emprestimo
 from accounts.models import Aluno
 

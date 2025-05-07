@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 
-from pathlib import Path
-import os
 
 
 from dotenv import load_dotenv

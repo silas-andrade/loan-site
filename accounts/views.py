@@ -1,17 +1,13 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from django.contrib.auth.models import User
-from django.db.models import Q
-from pathlib import Path
 
 
 from .forms import AlunoForm
 from .models import Aluno
-from moderator.models import Material, Pedido
-from moderator.forms import PedidoForm
+from moderator.models import Pedido
 from emprestimos.models import Emprestimo
 # Create your views here.
 
@@ -58,7 +54,7 @@ def LoginPage(request):
 
         try:
             username = Aluno.objects.get(matricula=matricula).user.username
-        except:
+        except Exception as e:
             messages.error(request, 'Usuário não existe!')
 
         user = authenticate(request, username=username, password=password)

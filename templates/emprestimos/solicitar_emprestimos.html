@@ -1,12 +1,8 @@
+{% extends 'main.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solicitar Empréstimo</title>
-
+{% block title %}Solicitar Empréstimos{% endblock %}
+{% block extra_css %}
     <style>
         body {
             margin: 0;
@@ -131,8 +127,8 @@
             color: #999;
         }
     </style>
-</head>
-<body>
+{% endblock %}
+<div>
     <header class="header">
         <img src="{% static 'img/logo.png' %}" class="logo-small" alt="Logo GECL" />
         <h1>Grêmio Estudantil Carlos Lamarca</h1>
@@ -162,19 +158,19 @@
             </form>
         </section>
     </main>
-
+{% block extra_scripts %}
     <script>
-      // Formulário de configuração
-      const form = document.querySelector('form');
-    
-      // Envio do formulário
-      form.addEventListener('submit', function(event) {
-        event.preventDefault();  // Evita o envio imediato do formulário
-        setTimeout(() => {
-          form.submit();  // Envia o formulário após 1 segundo
-        }, 1000);
-      });
+        // Formulário de configuração
+        const form = document.querySelector('form');
+        
+        // Envio do formulário
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();  // Evita o envio imediato do formulário
+            setTimeout(() => {
+                form.submit();  // Envia o formulário após 1 segundo
+            }, 1000);
+        });
     </script>
+{% endblock %}
     
-</body>
-</html>
+</div>

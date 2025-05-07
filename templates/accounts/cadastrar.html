@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cadastro</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
+{% extends 'main.html' %}
+{% load static %}
 
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-
-
+<div class="bg-gray-100 flex items-center justify-center min-h-screen">
 
     {% if messages %}
       <div class="mb-4 text-red-600 text-sm text-center">
@@ -19,7 +11,6 @@
         {% endfor %}
       </div>
     {% endif %}
-
     <form method="POST" action="">
       {% csrf_token %}
 
@@ -35,7 +26,4 @@
       </div>
      
     </form>
-
-
-</body>
-</html>
+</div>

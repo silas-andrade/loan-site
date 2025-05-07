@@ -1,8 +1,7 @@
 from django.db import models
-from accounts.models import *
-from moderator.models import *
-from django.db.models import F, Q
-# Create your models here.
+from accounts.models import Aluno
+from moderator.models import Material
+
 
 class Emprestimo(models.Model):
     aluno = models.ForeignKey(Aluno, on_delete=models.DO_NOTHING, related_name='aluno')
@@ -20,6 +19,3 @@ class Emprestimo(models.Model):
     
     class Meta:
         ordering = ['-created']
-        """constraints = [
-            CheckConstraint(name='not_same', check=~Q(first=F('second')))
-        ] """  
