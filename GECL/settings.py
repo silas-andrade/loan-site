@@ -49,11 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core.apps.CoreConfig',
     'emprestimos.apps.EmprestimosConfig',
     'moderator.apps.ModeratorConfig',
     'accounts.apps.AccountsConfig',
-
 ]
 
 
