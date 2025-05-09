@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Material, Pedido
+from .models import Pedido
 from django import forms
 
 

@@ -1,6 +1,7 @@
 {% extends 'main.html' %}
 {% load static %}
 
+{% block content %}
 <div class="bg-gray-100 flex items-center justify-center min-h-screen">
 
     {% if messages %}
@@ -27,3 +28,4 @@
      
     </form>
 </div>
+{% endblock %}

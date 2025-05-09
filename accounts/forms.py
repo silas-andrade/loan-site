@@ -11,5 +11,13 @@ class AlunoForm(ModelForm):
         widgets = {
             'nome_completo':forms.TextInput(attrs={'class': 'form-control'}),
             'matricula':forms.TextInput(attrs={'class': 'form-control'}),
-            'curso':forms.TextInput(attrs={'class': 'form-control'}),
+            'curso':forms.Select(
+                attrs={
+                    'placeholder': 'Escolha o seu curso',
+                    'class': 'form-control'
+                    }, 
+                choices={
+                    'Informática':'Informática', 'Agropecuária':'Agropecuária', 'Alimentos':'Alimentos', 'Zootecnia':'Zootecnia'
+                    }
+                    ),
         }
