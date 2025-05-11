@@ -7,7 +7,7 @@
 
 <img src="static/img/exemplo.png" alt="Exemplo imagem">
 
-> GECL-Emprestimos é um projeto de um site onde é organizado os empréstimo de materiais no IF Baiano Campus Santa Inês
+> GECL-Emprestimos é um projeto de um site onde é gerenciado os empréstimo de materiais no meu campus do IF Baiano
 
 ### Ajustes e melhorias
 
