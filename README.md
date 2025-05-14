@@ -1,13 +1,13 @@
-# GECL-Emprestimos
+# Loans-WebSite-Django 
 
-![GitHub repo size](https://img.shields.io/github/repo-size/SilasAndradev/GECL-Emprestimos?style=for-the-badge)
-![GitHub language count](https://img.shields.io/github/languages/count/SilasAndradev/GECL-Emprestimos?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/SilasAndradev/GECL-Emprestimos?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/SilasAndradev/Loans-WebSite-Django ?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/SilasAndradev/Loans-WebSite-Django ?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/SilasAndradev/Loans-WebSite-Django ?style=for-the-badge)
 
 
 <img src="static/img/exemplo.png" alt="Exemplo imagem">
 
-> GECL-Emprestimos é um projeto de um site onde é gerenciado os empréstimo de materiais no meu campus do IF Baiano
+> Loans-WebSite-Django is a website that manages loans
 
 ### Ajustes e melhorias
 
@@ -17,14 +17,14 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [x] Criar um sistema de Pedido de empréstimo
 - [x] Criar um sistema de devolução do empréstimo
 
-## 📫 Contribuindo para GECL-Emprestimos
+## 📫 Contribuindo para Loans-WebSite-Django 
 
-Para contribuir com GECL-Emprestimos, siga estas etapas:
+Para contribuir com Loans-WebSite-Django , siga estas etapas:
 
 1. Bifurque este repositório.
 2. Crie um branch: `git checkout -b <nome_branch>`.
 3. Faça suas alterações e confirme-as: `git commit -m '<mensagem_commit>'`
-4. Envie para o branch original: `git push origin GECL-Emprestimos / <local>`
+4. Envie para o branch original: `git push origin Loans-WebSite-Django  / <local>`
 5. Crie a solicitação de pull.
 
 Como alternativa, consulte a documentação do GitHub em [como criar uma solicitação pull](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
