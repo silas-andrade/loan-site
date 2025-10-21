@@ -1,33 +1,25 @@
-# Loans-WebSite 
+# loan-site
 
-![GitHub repo size](https://img.shields.io/github/repo-size/SilasAndradev/Loans-WebSite?style=for-the-badge)
-![GitHub language count](https://img.shields.io/github/languages/count/SilasAndradev/Loans-WebSite?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/SilasAndradev/Loans-WebSite?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/silas-andrade/loan-site?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/silas-andrade/loan-site?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/silas-andrade/loan-site?style=for-the-badge)
 
 
-<img src="static/img/exemplo.png" alt="Exemplo imagem">
+<img src="static/img/exemplo_pagina_inicial.png" alt="Exemplo imagem">
 
-> Loans-WebSite is a website that manages loans
+> loan-site is a website that manages loans
 
-### Ajustes e melhorias
+### Funcionalidades
 
-O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas para as seguintes tarefas:
+- Sistema de Login, Logout e Cadastro
+- Sistema de Pedido de empréstimo
 
-- [x] Criar um sistema de Login, Logout e Cadastro
-- [x] Criar um sistema de Pedido de empréstimo
-- [x] Criar um sistema de devolução do empréstimo
+<img src="static/img/exemplo_solicitar_emprestimo.png" alt="Exemplo imagem">
 
-## 📫 Contribuindo para Loans-WebSite 
-
-Para contribuir com Loans-WebSite , siga estas etapas:
-
-1. Bifurque este repositório.
-2. Crie um branch: `git checkout -b <nome_branch>`.
-3. Faça suas alterações e confirme-as: `git commit -m '<mensagem_commit>'`
-4. Envie para o branch original: `git push origin Loans-WebSite  / <local>`
-5. Crie a solicitação de pull.
-
-Como alternativa, consulte a documentação do GitHub em [como criar uma solicitação pull](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
+- Sistema de devolução do empréstimo
+- Sistema de ver todos os empréstimos feitos
+- Sistema de bloquear usuários de fazerem empréstimos
+- Sistema de adicionar e/ou remover materias
 
 ## 🤝 Colaboradores
 
