@@ -17,9 +17,17 @@
 <img src="static/img/exemplo_solicitar_emprestimo.png" alt="Exemplo imagem">
 
 - Sistema de devolução do empréstimo
+
+<img src="static/img/exemplos_painel_aluno.png" alt="Exemplo imagem">
+
 - Sistema de ver todos os empréstimos feitos
+
+<img src="static/img/exemplo_painel_geral.png" alt="Exemplo imagem">
+
 - Sistema de bloquear usuários de fazerem empréstimos
-- Sistema de adicionar e/ou remover materias
+
+<img src="static/img/exemplo_painel_gerenciar_aluno.png" alt="Exemplo imagem">
+
 
 ## 🤝 Colaboradores
 
