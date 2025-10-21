@@ -21,7 +21,7 @@
     
             <h1 class="text-3xl font-bold">Bem-vindo(a) ao Painel Geral</h1>  
             <section>
-                <h2 class="text-2xl font-semibold mb-4">Todos empréstimos que não estão devolvidos</h2>
+                <h2 class="text-2xl font-semibold mb-4">Empréstimos que não estão devolvidos</h2>
                     <div class="grid md:grid-cols-2 gap-4">
                         {% for emprestimo in emprestimos_nao_devolvidos %}
                             <div class="bg-white rounded-xl shadow p-4 space-y-2">
@@ -37,6 +37,7 @@
                         {% endfor %}
                     </div>
             </section>   
+            {% if request.user.is_staff %}
             <section>
                 <h2 class="text-2xl font-semibold mb-4">Todos empréstimos devolvidos</h2>
                     <div class="grid md:grid-cols-2 gap-4">
@@ -54,6 +55,7 @@
                         {% endfor %}
                     </div>
             </section>   
+            {% endif %}
         </main>
     </div>
 </body>

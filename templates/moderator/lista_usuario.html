@@ -20,10 +20,10 @@
         <main class="flex-1 p-6 mt-10 md:mt-0 w-full">
           <div class="max-w-5xl mx-auto">
             <h1 class="text-2xl font-bold mb-6 text-center">Alunos cadastrados</h1>
-            {% if request.user.is_staff == True %}
+            {% if request.user.is_staff %}
               <!-- Seção de adm -->
               <section class="mb-10">
-                <h2 class="text-xl font-semibold mb-4">Grêmio</h2>
+                <h2 class="text-xl font-semibold mb-4">Administradores</h2>
                 <div class="bg-white rounded-xl shadow-md p-4">
                   <ul class="divide-y divide-gray-200">
                     {% for admin in admins %}
@@ -33,7 +33,7 @@
                         
                       </li>
                     {% empty %}
-                      <p class="text-center text-gray-500">Nenhum superusuário encontrado.</p>
+                      <p class="text-center text-gray-500">Nenhum administrador encontrado.</p>
                     {% endfor %}
                   </ul>
                 </div>
@@ -73,30 +73,32 @@
                     <li class="py-2 flex flex-col md:flex-row md:items-center justify-between gap-2">
                       <div>
                         <span class="font-medium">{{ aluno.nome_completo }}</span> — 
-                        <span class="text-sm text-gray-500">Matrícula: {{ aluno.matricula }}</span> — 
+                        <span class="text-sm text-gray-500">Matrícula: {{ aluno.matricula }}</span>
                         
                         {% if aluno.bloqueado %}
                           <p class="text-red-500 text-xs mt-1 status-msg">Usuário bloqueado — não pode realizar empréstimos.</p>
                         {% endif %}
                       </div>
-                      <form method="POST" action="{% url 'bloquear-usuarios' aluno.id %}">
-                        {% csrf_token %}
+                      {% if request.user.is_staff %}
+                        <form method="POST" action="{% url 'bloquear-usuarios' aluno.id %}">
+                          {% csrf_token %}
 
-                        {% if aluno.bloqueado %}
-                        <button type="submit"
-                          class="text-white text-sm px-4 py-1 rounded-xl bg-green-500 hover:bg-green-600">
-                          Desbloquear
-                        </button>
+                          {% if aluno.bloqueado %}
+                          <button type="submit"
+                            class="text-white text-sm px-4 py-1 rounded-xl bg-green-500 hover:bg-green-600">
+                            Desbloquear
+                          </button>
 
-                        {% else %}
+                          {% else %}
 
-                        <button type="submit"
-                          class="text-white text-sm px-4 py-1 rounded-xl bg-red-500 hover:bg-red-600">
-                          Bloquear
-                        </button>
+                          <button type="submit"
+                            class="text-white text-sm px-4 py-1 rounded-xl bg-red-500 hover:bg-red-600">
+                            Bloquear
+                          </button>
 
-                        {% endif %}
-                      </form>
+                          {% endif %}
+                        </form>
+                      {% endif %}
                     </li>
 
                   </ul>

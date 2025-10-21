@@ -1,0 +1,153 @@
+/* Fonte e fundo */
+body {
+    margin: 0;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: black;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Container central */
+.container-emprestimo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Card principal */
+.emprestimos-section {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    padding: 40px 50px;
+    width: 100%;
+    max-width: 480px;
+    color: #fff;
+    text-align: center;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Título */
+.emprestimos-section h2 {
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+/* Campo e rótulo */
+.form-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #f0f0f0;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="number"],
+input[type="datetime-local"],
+select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #00c6ff;
+    box-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Botões principais */
+.btn-enviar,
+.btn-voltar {
+    width: 100%;
+    padding: 14px;
+    display: inline-block;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 12px;
+    text-decoration: none;
+}
+
+/* Botão de enviar */
+.btn-enviar {
+    background: linear-gradient(135deg, #00c6ff, #007bff);
+    border: none;
+}
+
+.btn-enviar:hover {
+    background: linear-gradient(135deg, #0096ff, #0062ff);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Botão de voltar */
+.btn-voltar {
+    background: linear-gradient(135deg, #444, #222);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-voltar:hover {
+    background: linear-gradient(135deg, #555, #333);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Erro de campo */
+.erro {
+    color: #ffb3b3;
+    font-size: 0.9em;
+    margin-top: 4px;
+}
+
+/* Animação de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    .emprestimos-section {
+        padding: 30px 25px;
+        max-width: 90%;
+    }
+
+    .btn-enviar,
+    .btn-voltar {
+        font-size: 1rem;
+        padding: 12px;
+    }
+}
