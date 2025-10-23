@@ -1,59 +1,50 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
 from django.contrib import messages
 
 
-from .forms import AlunoForm
-from .models import Aluno
-from moderator.models import Pedido
-from emprestimos.models import Emprestimo
-# Create your views here.
+from moderator.models import LoanApplication
+from .forms import UserFormRegister
+from loans.models import Loan
+from .models import User
+
 
 def RegisterPage(request):
-    form = UserCreationForm()
-    alunoForm = AlunoForm()
+    form = UserFormRegister()
 
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        alunoForm = AlunoForm(request.POST)
+        form = UserFormRegister(request.POST)
         
-        if form.is_valid() and alunoForm.is_valid():
+        if form.is_valid:
 
             user = form.save(commit=False)
-            user.username = user.username.lower()
+            user.username = user.username.upper()
             user.save()
-            
-            aluno = alunoForm.save(commit=False)
-            aluno.user = user
-            aluno.save()
-
 
             login(request, user)
-            return redirect('dashboard-aluno')
+            return redirect('dashboard')
         else:
             messages.error(request, 'Ocorreu um erro durante o registro!')
 
 
     context = {
         'form':form,
-        'alunoForm': alunoForm,
     }
-    return render(request, 'accounts/cadastrar.html', context)
+    return render(request, 'accounts/sing-up.html', context)
 
 
 def LoginPage(request):
 
     if request.user.is_authenticated:
-        return redirect('dashboard-aluno')
+        return redirect('dashboard')
 
     if request.method == 'POST':
         matricula = request.POST.get('matricula')
         password = request.POST.get('password')
 
         try:
-            username = Aluno.objects.get(matricula=matricula).user.username
+            username = User.objects.get(username=username).username
         except Exception as e:
             messages.error(request, 'Usuário não existe!')
 
@@ -61,35 +52,36 @@ def LoginPage(request):
 
         if user is not None:
             login(request, user)
-            return redirect('dashboard-aluno')
+            return redirect('dashboard')
         else:
             messages.error(request, 'Nome de usuário OU senha estão erradas!')
 
     context = {
 
     }
-    return render(request, "accounts/login.html", context)
+    return render(request, "accounts/sing-in.html", context)
 
 
 @login_required(login_url='/login/')
 def LogoutUser(request):
     logout(request)
-    return redirect('dashboard-aluno')
+    return redirect('dashboard')
 
 
 @login_required(login_url='/login/')
-def DashboardAluno(request):
+def DashboardUser(request):
+    print(request.user)
     context = {
-            'pedidos_pendentes':Pedido.objects.filter(
-                aluno=Aluno.objects.get(user=request.user), 
-                pendência=True
+            'pedidos_pendentes':LoanApplication.objects.filter(
+                user=User.objects.get(username=request.user), 
+                is_pending=True
                 ),
-            'pedidos_respondidos':Pedido.objects.filter(
-                aluno=Aluno.objects.get(user=request.user), 
-                pendência=False,
+            'pedidos_respondidos':LoanApplication.objects.filter(
+                user=User.objects.get(username=request.user), 
+                is_pending=False,
                 ),
-            'emprestimos':Emprestimo.objects.filter(
-                aluno=Aluno.objects.get(user=request.user), 
+            'loans':Loan.objects.filter(
+                user=User.objects.get(username=request.user), 
                 ),
        }
     return render(request, "accounts/dashboard.html", context)

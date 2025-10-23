@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Emprestimo
+from .models import Loan
 # Register your models here.
 
-admin.site.register(Emprestimo)
+admin.site.register(Loan)

@@ -27,19 +27,19 @@
                     <div class="grid md:grid-cols-2 gap-4">
                         {% for pedido in pedidos %}
                             <div class="bg-white rounded-xl shadow p-4 space-y-2">
-                                <p><strong>Aluno:</strong> {{ pedido.aluno.nome_completo }}</p>
-                                <p><strong>Matrícula:</strong> {{ pedido.aluno.matricula }}</p>
-                                <p><strong>Item:</strong> {{ pedido.material.nome }}</p>
-                                <p><strong>Quantidade:</strong> {{ pedido.quantidade }}</p>
-                                <p><strong>Data e hora de Empréstimo:</strong> {{ pedido.criado|date:"d/m/y H:i:s" }}</p>
-                                <p><strong>Data e hora prevista de Devolução:</strong> {{ pedido.data_prevista|date:"d/m/y H:i:s" }}</p>
+                                <p><strong>Aluno:</strong> {{ pedido.user.full_name }}</p>
+                                <p><strong>Matrícula:</strong> {{ pedido.user.username }}</p>
+                                <p><strong>Item:</strong> {{ pedido.material.name }}</p>
+                                <p><strong>Quantidade:</strong> {{ pedido.quantity }}</p>
+                                <p><strong>Data e hora de Empréstimo:</strong> {{ pedido.created_at|date:"d/m/y H:i:s" }}</p>
+                                <p><strong>Data e hora prevista de Devolução:</strong> {{ pedido.expected_return_date|date:"d/m/y H:i:s" }}</p>
     
                                 <div class="flex gap-2 mt-2">
-                                    <form method="post" action="{% url 'aceitar-pedido' pedido.id %}">
+                                    <form method="post" action="{% url 'accept-loan-application' pedido.id %}">
                                         {% csrf_token %}
                                         <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded">Aceitar</button>
                                     </form>
-                                    <form method="post" action="{% url 'recusar-pedido' pedido.id %}">
+                                    <form method="post" action="{% url 'reject-loan-application' pedido.id %}">
                                         {% csrf_token %}
                                         <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded">Recusar</button>
                                     </form>
@@ -54,10 +54,10 @@
                 <div class="grid md:grid-cols-2 gap-4">
                     {% for emprestimo in emprestimos_esperando_devolucao %}
                         <div class="bg-white rounded-xl shadow p-4 space-y-2">
-                            <p><strong>Usuário:</strong> {{ emprestimo.aluno.nome_completo }}</p>
-                            <p><strong>Matrícula:</strong> {{ emprestimo.aluno.matricula }}</p>
-                            <p><strong>Item:</strong> {{ emprestimo.material.nome }}</p>
-                            <p><strong>Data Prevista de Devolução:</strong> {{ emprestimo.data_prevista|date:"d/m/y H:i:s" }}</p>
+                            <p><strong>Usuário:</strong> {{ emprestimo.user.full_name }}</p>
+                            <p><strong>Matrícula:</strong> {{ emprestimo.user.username }}</p>
+                            <p><strong>Item:</strong> {{ emprestimo.material.name }}</p>
+                            <p><strong>Data Prevista de Devolução:</strong> {{ emprestimo.expected_return_date|date:"d/m/y H:i:s" }}</p>
                             <p class="text-sm font-semibold"></p>
                                 
                         </div>
@@ -70,10 +70,10 @@
                 <div class="grid md:grid-cols-2 gap-4">
                     {% for emprestimo in emprestimos_esperando_confimacao_de_devolucao %}
                         <div class="bg-white rounded-xl shadow p-4 space-y-2">
-                            <p><strong>Usuário:</strong> {{ emprestimo.aluno.nome_completo }}</p>
-                            <p><strong>Matrícula:</strong> {{ emprestimo.aluno.matricula }}</p>
-                            <p><strong>Item:</strong> {{ emprestimo.material.nome }}</p>
-                            <p><strong>Data e hora devolvida:</strong> {{ emprestimo.data_devolvida|date:"d/m/y H:i:s" }}</p>
+                            <p><strong>Usuário:</strong> {{ emprestimo.user.full_name }}</p>
+                            <p><strong>Matrícula:</strong> {{ emprestimo.user.username }}</p>
+                            <p><strong>Item:</strong> {{ emprestimo.material.name }}</p>
+                            <p><strong>Data e hora devolvida:</strong> {{ emprestimo.date_returned|date:"d/m/y H:i:s" }}</p>
                             <p class="text-sm font-semibold"></p>
                                 
                             <div class="flex gap-2 mt-2">

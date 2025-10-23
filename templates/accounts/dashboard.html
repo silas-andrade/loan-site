@@ -25,10 +25,10 @@
                     <div class="grid md:grid-cols-2 gap-4">
                         {% for pedido in pedidos_pendentes %}
                             <div class="bg-white rounded-xl shadow p-4 space-y-2">
-                                <p><strong>Item:</strong> {{ pedido.material.nome }}</p>
-                                <p><strong>Quantidade:</strong> {{ pedido.quantidade }}</p>
-                                <p><strong>Data e hora da criação do pedido:</strong> {{ pedido.criado|date:"d/m/y H:i:s" }}</p>
-                                <p><strong>Data e hora prevista de Devolução:</strong> {{ pedido.data_prevista|date:"d/m/y H:i:s" }}</p>
+                                <p><strong>Item:</strong> {{ pedido.material.name }}</p>
+                                <p><strong>Quantidade:</strong> {{ pedido.quantity }}</p>
+                                <p><strong>Data e hora da criação do pedido:</strong> {{ pedido.created_at|date:"d/m/y H:i:s" }}</p>
+                                <p><strong>Data e hora prevista de Devolução:</strong> {{ pedido.expected_return_date|date:"d/m/y H:i:s" }}</p>
                                 
                             </div>
                         {% endfor %}
@@ -36,45 +36,34 @@
             </section>
             {% endif %}    
             <section>
-                <h2 class="text-2xl font-semibold mb-4">Meus pedidos respondidos</h2>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        {% for pedido in pedidos_respondidos %}
-                            <div class="bg-white rounded-xl shadow p-4 space-y-2">
-                                <p><strong>Item:</strong> {{ pedido.material.nome }}</p>
-                                <p><strong>Quantidade:</strong> {{ pedido.quantidade }}</p>
-                                <p><strong>Aprovado:</strong> {% if pedido.aprovado == False %}Não aprovado {% else %}Aprovado{% endif %}</p>
-                                <p><strong>Data e hora da criação do pedido:</strong> {{ pedido.criado|date:"d/m/y H:i:s" }}</p>
-                                <p><strong>Data e hora prevista da devolução:</strong> {{ pedido.data_prevista|date:"d/m/y H:i:s" }}</p>
-    
-                            </div>
-                        {% endfor %}
-                    </div>
-            </section>
-            <section>
                 <h2 class="text-2xl font-semibold mb-4">Meus empréstimos</h2>
                     <div class="grid md:grid-cols-2 gap-4">
-                        {% for emprestimo in emprestimos %}
-                            <div class="bg-white rounded-xl shadow p-4 space-y-2">
-                                <p><strong>Item:</strong> {{ emprestimo.material.nome }}</p>
-                                <p><strong>Quantidade:</strong> {{ emprestimo.quantidade }}</p>
+                        {% if loans %}
+                            {% for loan in loans %}
+                                <div class="bg-white rounded-xl shadow p-4 space-y-2">
+                                    <p><strong>Item:</strong> {{ loan.material.nome }}</p>
+                                    <p><strong>Quantidade:</strong> {{ loan.quantidade }}</p>
 
-                                {% if emprestimo.devolução_confirmada == False %}
-                                <p><strong>Situação:</strong> Não devolvido</p>
-                                <p><strong>Data e hora prevista da devolução:</strong> {{ emprestimo.data_prevista|date:"d/m/y H:i:s" }}</p>
-                                <p><strong>Data e hora da criação do pedido:</strong> {{ emprestimo.created|date:"d/m/y H:i:s" }}</p>
-                                <form method="post" action="{% url 'devolver' emprestimo.id %}">
-                                    {% csrf_token %}
-                                    <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded">Devolver</button>
-                                </form>
+                                    {% if not loan.is_return_confirmed %}
+                                    <p><strong>Situação:</strong> Não devolvido</p>
+                                    <p><strong>Data e hora prevista da devolução:</strong> {{ loan.expected_return_date|date:"d/m/y H:i:s" }}</p>
+                                    <p><strong>Data e hora da criação do pedido:</strong> {{ loan.created_at|date:"d/m/y H:i:s" }}</p>
+                                    <form method="post" action="{% url 'devolver' emprestimo.id %}">
+                                        {% csrf_token %}
+                                        <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded">Devolver</button>
+                                    </form>
 
-                                {% else %}
-                                <p><strong>Situação:</strong> Devolvido</p>
-                                <p><strong>Data e hora da devolução:</strong> {{ emprestimo.data_devolvida|date:"d/m/y H:i:s" }}</p>
-                                <p><strong>Data e hora da criação do pedido:</strong> {{ emprestimo.created|date:"d/m/y H:i:s" }}</p>
-                                {% endif %}
-    
-                            </div>
-                        {% endfor %}
+                                    {% else %}
+                                    <p><strong>Situação:</strong> Devolvido</p>
+                                    <p><strong>Data e hora da devolução:</strong> {{ emprestimo.data_devolvida|date:"d/m/y H:i:s" }}</p>
+                                    <p><strong>Data e hora da criação do pedido:</strong> {{ emprestimo.created|date:"d/m/y H:i:s" }}</p>
+                                    {% endif %}
+        
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                                <strong>Você não tem empréstimos pendentes</strong>
+                        {% endif %}
                     </div>
             </section>
         </main>

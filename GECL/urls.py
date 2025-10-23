@@ -1,19 +1,19 @@
 from django.contrib import admin
 from django.urls import path
 
-from accounts.views import RegisterPage, LoginPage, LogoutUser, DashboardAluno
-from emprestimos.views import SolicitarEmprestimo, FazerDevolucao
+from accounts.views import RegisterPage, LoginPage, LogoutUser, DashboardUser
+from loans.views import RequestLoan, MakeLoanReturn
 
 from moderator.views import (
-    AceitarDevolucao, 
-    AceitarPedido, 
-    BloquearUsuarios, 
+    AcceptMaterialReturn, 
+    AcceptLoanApplication,
+    BlockUser, 
     DashboardAdmin, 
-    GerenciarAlunos, 
-    RecusarPedido, 
-    RemoverMateriais, 
-    VerMateriais, 
-    VerTodosOsEmprestimos
+    ManageUsers, 
+    RejectLoanApplication, 
+    DeleteMaterial, 
+    ViewMaterials, 
+    ViewAllLoans
     )
 
 urlpatterns = [
@@ -22,35 +22,34 @@ urlpatterns = [
     # App Core
 
     # App usuarios
-    path('registrar/', RegisterPage, name='cadastrar'),
-    path('login/', LoginPage, name='login'),
+    path('sing-up/', RegisterPage, name='sing-up'),
+    path('sing-in/', LoginPage, name='sing-in'),
     path('logout/', LogoutUser, name='logout'),
 
     # App Empréstimos
-    path('solicitar/', SolicitarEmprestimo, name='solicitar'),
-    #path('meus-emprestimos/', VerMeusEmprestimosPedidos, name='meus-emprestimos'),
-    path('devolver/<str:pk>', FazerDevolucao, name='devolver'),
+    path('request-loan/', RequestLoan, name='request-loan'),
+    #path('meus-loans/', VerMeusEmprestimosPedidos, name='meus-emprestimos'),
+    path('return-loan/<str:pk>', MakeLoanReturn, name='return-loan'),
 
     # App Moderator
-    path('dashboard/', DashboardAdmin, name='dashboard'),
-    path('', DashboardAluno, name='dashboard-aluno'),
+    path('dashboard-admin/', DashboardAdmin, name='dashboard-admin'),
+    path('', DashboardUser, name='dashboard'),
 
-    path('ver-materiais/', VerMateriais, name='ver-materiais'),
-    path('remover-materiais/<str:pk>', RemoverMateriais, name='remover-material'),
+    path('view-materials/', ViewMaterials, name='view-materials'),
+    path('delete-material/<str:pk>', DeleteMaterial, name='delete-material'),
     
-    path('aceitar-devolucao/<str:pk>', AceitarDevolucao, name='aceitar-devolucao'),
+    path('accept-material-return/<str:pk>', AcceptMaterialReturn, name='accept-material-return'),
     
-    path('aceitar-pedido/<str:pk>', AceitarPedido, name='aceitar-pedido'),
-    path('recusar-pedido/<str:pk>', RecusarPedido, name='recusar-pedido'),
+    path('accept-loan-application/<str:pk>', AcceptLoanApplication, name='accept-loan-application'),
+
+    path('reject-loan-application/<str:pk>', RejectLoanApplication, name='reject-loan-application'),
     
     
-    path('todos-emprestimos/', VerTodosOsEmprestimos, name='todos-emprestimos'),
+    path('all-loans/', ViewAllLoans, name='all-loans'),
 
+    path('manage-users/', ManageUsers, name='manage-users'),
 
-
-
-    path('gerenciar-alunos/', GerenciarAlunos, name='gerenciar-alunos'),
-    path('bloquear-usuarios/<str:pk>', BloquearUsuarios, name='bloquear-usuarios'),
+    path('block-user/<str:pk>', BlockUser, name='block-user'),
 
 
 ]

@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class EmprestimosConfig(AppConfig):
+class LoansConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'emprestimos'
+    name = 'loans'

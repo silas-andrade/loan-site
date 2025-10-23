@@ -47,9 +47,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'emprestimos.apps.EmprestimosConfig',
-    'moderator.apps.ModeratorConfig',
-    'accounts.apps.AccountsConfig',
+    'loans',
+    'moderator',
+    'accounts',
 ]
 
 
@@ -143,7 +143,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
- 
+AUTH_USER_MODEL = 'accounts.User'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',

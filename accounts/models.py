@@ -1,22 +1,18 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 
 
-class Aluno(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class User(AbstractUser):
+    full_name = models.CharField(max_length=255)
 
-    nome_completo = models.CharField(max_length=255)
+    username = models.CharField(max_length=15, unique=True)
 
-    matricula = models.CharField(max_length=15, unique=True)
+    email = models.EmailField(unique=True)
 
-    curso = models.CharField(blank=True, null=True, max_length=15)
+    course = models.CharField(blank=True, null=True, max_length=15)
 
-    bloqueado = models.BooleanField(default=False)
+    is_blocked = models.BooleanField(default=False)
 
-    moderador = models.BooleanField(default=False)
-
-    
     def __str__(self):
-        return self.user.username
-    
+        return self.username

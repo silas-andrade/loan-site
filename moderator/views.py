@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
-from django.http import HttpResponse
-from .models import Material, Pedido
-from emprestimos.models import Emprestimo
-from accounts.models import Aluno
+from django.http import HttpResponse, JsonResponse
+from .models import Material, LoanApplication
+from loans.models import Loan
+from accounts.models import User
 
 
 @login_required(login_url='/login/')
@@ -14,41 +14,45 @@ def DashboardAdmin(request):
     e materias disponíveis  
     """
     if not request.user.is_staff:
-        return redirect('dashboard-aluno')
+        return redirect('dashboard')
     
     else:
         context = {
-            'pedidos':Pedido.objects.filter(pendência=True),
-            'materiais':Material.objects.filter(quantidade_disponivel__gte=1),
-            'emprestimos_esperando_devolucao':Emprestimo.objects.filter(devolvido=False),
-            'emprestimos_esperando_confimacao_de_devolucao':Emprestimo.objects.filter(devolvido=True, devolução_confirmada=False),
+            'pedidos':LoanApplication.objects.filter(is_pending=True),
+            'materiais':Material.objects.filter(available_quantity__gte=1),
+            'emprestimos_esperando_devolucao':Loan.objects.filter(is_returned=False),
+            'emprestimos_esperando_confimacao_de_devolucao':Loan.objects.filter(is_returned=True, is_return_confirmed=False),
         }
         return render(request, "moderator/dashboard.html", context)
 
 
 @login_required(login_url='/login/')
-def GerenciarAlunos(request):
+def ManageUsers(request):
+    ...
+    """
     if not request.user.is_staff:
-        return redirect('dashboard-aluno')
+        return redirect('dashboard')
     
     else:
         context = {
-            'alunos':Aluno.objects.filter(moderador=False),
-            'admins':Aluno.objects.filter(moderador=True)
+            'alunos':User.objects.filter(moderador=False),
+            'admins':User.objects.filter(moderador=True)
         }
         
 
         return render(request, "moderator/lista_usuario.html", context)
+    """ 
+    return redirect('dashboard') if not request.user.is_staff else redirect('dashboard-admin')
 
 
 @login_required(login_url='/login/')
-def VerTodosOsEmprestimos(request):
-    aluno = Aluno.objects.get(user=request.user)
+def ViewAllLoans(request):
+    user = User.objects.get(username=request.user)
     emprestimos_devolvidos = list(
-         Emprestimo.objects.filter(aluno=aluno, devolução_confirmada=True)
+         Loan.objects.filter(user=user, is_return_confirmed=True)
     )
     emprestimos_nao_devolvidos = list(
-         Emprestimo.objects.filter(aluno=aluno, devolução_confirmada=False)
+         Loan.objects.filter(user=user, is_return_confirmed=False)
     )
     
     context = {
@@ -58,26 +62,24 @@ def VerTodosOsEmprestimos(request):
     return render(request, "moderator/ver_emprestimos.html", context)
 
 
-
-
 @login_required(login_url='/login/')
-def BloquearUsuarios(request, pk):
+def BlockUser(request, pk):
     if not request.user.is_staff:
-        return redirect('dashboard-aluno')
+        return redirect('dashboard')
     
     else:
-        aluno = Aluno.objects.get(id=pk)
+        user = User.objects.get(id=pk)
 
-        if aluno.bloqueado:
-            aluno.bloqueado = False
+        if user.is_blocked:
+            user.is_blocked = False
         else:
-            aluno.bloqueado = True
+            user.is_blocked = True
 
-        aluno.save()
-    return redirect('dashboard')
+        user.save()
+    return redirect('dashboard-admin')
 
 @login_required(login_url='/login/')
-def VerMateriais(request):
+def ViewMaterials(request):
     if request.user.is_staff:
         materias = Material.objects.all()
         context = {
@@ -85,74 +87,74 @@ def VerMateriais(request):
         }
         return render(request, "moderator/material.html", context)
     else:
-        return HttpResponse("<h1>Você não pode entrar aqui!</h1>")
+        return JsonResponse("<h1>Você não pode entrar aqui!</h1>")
     
 
 @login_required(login_url='/login/')
-def RemoverMateriais(request, pk):
+def DeleteMaterial(request, pk):
     if request.user.is_staff:
         materiais = Material.objects.get(id=pk)
         materiais.delete()
-        return redirect('dashboard')
+        return redirect('dashbdashboard-adminoard')
     else:
-        return HttpResponse("<h1>Você não pode entrar aqui!</h1>")
+        return JsonResponse("<h1>Você não pode entrar aqui!</h1>")
 
 
 @login_required(login_url='/login/')
-def AceitarDevolucao(request, pk):
+def AcceptMaterialReturn(request, pk):
     if not request.user.is_staff:
-        return redirect('home')
+        return redirect('dashboard')
     else:
-        emprestimo = Emprestimo.objects.get(id=pk)
-        if emprestimo.devolvido:
-            emprestimo.devolução_confirmada = True
-            emprestimo.data_devolvida = datetime.now()
-            emprestimo.save()
+        loan = Loan.objects.get(id=pk)
+        if loan.is_returned:
+            loan.return_confirmed = True
+            loan.date_returned = datetime.now()
+            loan.save()
 
-            material = Material.objects.get(nome=emprestimo.material)
-            material.quantidade_disponivel += emprestimo.quantidade
+            material = Material.objects.get(nome=loan.material)
+            material.available_quantity += loan.quantity
             material.save()
 
-            return redirect('dashboard')
-        return redirect('dashboard')
+            return redirect('dashboard-admin')
+        return redirect('dashboard-admin')
 
 
 @login_required(login_url='/login/')
-def AceitarPedido(request, pk):
+def AcceptLoanApplication(request, pk):
     if not request.user.is_staff:
-        return redirect('dashboard-aluno')
+        return redirect('dashboard')
     else:
-        pedido = Pedido.objects.get(id=pk)
-        material = Material.objects.get(nome=pedido.material.nome)
-        if pedido.pendência and material.quantidade_disponivel >= pedido.quantidade:
-            pedido.pendência = False
-            pedido.aprovado = True
-            pedido.save()
+        loan_application = LoanApplication.objects.get(id=pk)
+        material = Material.objects.get(name=loan_application.material.name)
+        if loan_application.is_pending and material.available_quantity >= loan_application.quantity and loan_application.quantity > 0:
+            loan_application.is_pending = False
+            loan_application.is_approved = True
+            loan_application.save()
 
-            material.quantidade_disponivel -= pedido.quantidade
+            material.available_quantity -= loan_application.quantity
             material.save()
             
-            Emprestimo.objects.create(
-                aluno=pedido.aluno,
+            Loan.objects.create(
+                user=loan_application.user,
                 material=material,
-                data_prevista=pedido.data_prevista,
-                quantidade=pedido.quantidade,
-                quem_aprovou=Aluno.objects.get(user=request.user)
+                expected_return_date=loan_application.expected_return_date,
+                quantidade=loan_application.quantity,
+                quem_aprovou=User.objects.get(username=request.user)
             )
-            return redirect('dashboard')
-        return HttpResponse('<h1>Ou o pedido já foi respondido ou o quantidade de material<br>pedido é maior do que a quantidade disponível</h1>')
+            return redirect('dashboard-admin')
+        return redirect('dashboard-admin')
         
 
 
 @login_required(login_url='/login/')
-def RecusarPedido(request, pk):
+def RejectLoanApplication(request, pk):
     if not request.user.is_staff:
-        return redirect('home')
+        return redirect('dashboard')
     else:
-        pedido = Pedido.objects.get(id=pk)
-        if pedido.pendência:
-            pedido.pendência = False
-            pedido.aprovado = False
-            pedido.save()
-            return redirect('dashboard')
-        return HttpResponse('<h1>O pedido já foi respondido</h1>')
+        loan_application = LoanApplication.objects.get(id=pk)
+        if loan_application.is_pending:
+            loan_application.is_pending = False
+            loan_application.is_approved = False
+            loan_application.save()
+            return redirect('dashboard-admin')
+        return redirect('dashboard-admin', {"warning":"This request has already been fulfilled"})

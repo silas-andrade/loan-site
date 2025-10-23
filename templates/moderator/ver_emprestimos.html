@@ -25,14 +25,14 @@
                     <div class="grid md:grid-cols-2 gap-4">
                         {% for emprestimo in emprestimos_nao_devolvidos %}
                             <div class="bg-white rounded-xl shadow p-4 space-y-2">
-                                <p><strong>Aluno:</strong> {{ emprestimo.aluno.nome_completo }}</p>
-                                <p><strong>Curso:</strong> {{ emprestimo.aluno.curso }}</p>
-                                <p><strong>Item:</strong> {{ emprestimo.material.nome }}</p>
-                                <p><strong>Quantidade:</strong> {{ emprestimo.quantidade }}</p>
-                                <p><strong>Administrador que aprovou:</strong> {{ emprestimo.quem_aprovou.nome_completo }}</p>
-                                <p><strong>Data e hora da criação do pedido:</strong> {{ emprestimo.created|date:"d/m/y H:i:s" }}</p>
+                                <p><strong>Aluno:</strong> {{ emprestimo.user.full_name }}</p>
+                                <p><strong>Curso:</strong> {{ emprestimo.user.course }}</p>
+                                <p><strong>Item:</strong> {{ emprestimo.material.name }}</p>
+                                <p><strong>Quantidade:</strong> {{ emprestimo.quantity }}</p>
+                                <p><strong>Administrador que aprovou:</strong> {{ emprestimo.who_approved.full_name }} | {{ emprestimo.who_approved.username }}</p>
+                                <p><strong>Data e hora da criação do pedido:</strong> {{ emprestimo.created_at|date:"d/m/y H:i:s" }}</p>
                                 <p><strong>Situação:</strong> Não devolvido </p>
-                                <p><strong>Data e hora prevista de Devolução:</strong> {{ emprestimo.data_prevista|date:"d/m/y H:i:s" }}</p>
+                                <p><strong>Data e hora prevista de Devolução:</strong> {{ emprestimo.expected_return_date|date:"d/m/y H:i:s" }}</p>
                             </div>
                         {% endfor %}
                     </div>
@@ -43,14 +43,14 @@
                     <div class="grid md:grid-cols-2 gap-4">
                         {% for emprestimo in emprestimos_devolvidos %}
                             <div class="bg-white rounded-xl shadow p-4 space-y-2">
-                                <p><strong>Aluno:</strong> {{ emprestimo.aluno.nome_completo }}</p>
-                                <p><strong>Curso:</strong> {{ emprestimo.aluno.curso }}</p>
+                                <p><strong>Aluno:</strong> {{ emprestimo.user.full_name }}</p>
+                                <p><strong>Curso:</strong> {{ emprestimo.user.course }}</p>
                                 <p><strong>Item:</strong> {{ emprestimo.material.nome }}</p>
                                 <p><strong>Quantidade:</strong> {{ emprestimo.quantidade }}</p>
                                 <p><strong>Administrador que aprovou:</strong> {{ emprestimo.quem_aprovou.nome_completo }}</p>
-                                <p><strong>Data e hora da criação do pedido:</strong> {{ emprestimo.created|date:"d/m/y H:i:s" }}</p>
+                                <p><strong>Data e hora da criação do pedido:</strong> {{ emprestimo.created_at|date:"d/m/y H:i:s" }}</p>
                                 <p><strong>Situação:</strong> Devolvido</p>
-                                <p><strong>Data e hora da devolução:</strong> {{ emprestimo.data_devolvida|date:"d/m/y H:i:s" }}</p>
+                                <p><strong>Data e hora da devolução:</strong> {{ emprestimo.date_returned|date:"d/m/y H:i:s" }}</p>
                             </div>
                         {% endfor %}
                     </div>

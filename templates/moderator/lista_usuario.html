@@ -67,15 +67,15 @@
               <div id="turmaContainer" class="space-y-6">
                 {% for aluno in alunos %}
                   <div class="turma bg-white rounded-xl shadow-md p-4" data-turma="{{ turma }}">
-                    <h3 class="text-lg font-semibold mb-2">{{ aluno.curso }}</h3>
+                    <h3 class="text-lg font-semibold mb-2">{{ user.course }}</h3>
                     <ul class="divide-y divide-gray-200">
                   
                     <li class="py-2 flex flex-col md:flex-row md:items-center justify-between gap-2">
                       <div>
-                        <span class="font-medium">{{ aluno.nome_completo }}</span> — 
-                        <span class="text-sm text-gray-500">Matrícula: {{ aluno.matricula }}</span>
+                        <span class="font-medium">{{ user.full_name }}</span> — 
+                        <span class="text-sm text-gray-500">Matrícula: {{ user.username }}</span>
                         
-                        {% if aluno.bloqueado %}
+                        {% if aluno.is_blocked %}
                           <p class="text-red-500 text-xs mt-1 status-msg">Usuário bloqueado — não pode realizar empréstimos.</p>
                         {% endif %}
                       </div>
@@ -83,7 +83,7 @@
                         <form method="POST" action="{% url 'bloquear-usuarios' aluno.id %}">
                           {% csrf_token %}
 
-                          {% if aluno.bloqueado %}
+                          {% if aluno.is_blocked %}
                           <button type="submit"
                             class="text-white text-sm px-4 py-1 rounded-xl bg-green-500 hover:bg-green-600">
                             Desbloquear
