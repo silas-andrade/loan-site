@@ -138,8 +138,8 @@ def AcceptLoanApplication(request, pk):
                 user=loan_application.user,
                 material=material,
                 expected_return_date=loan_application.expected_return_date,
-                quantidade=loan_application.quantity,
-                quem_aprovou=User.objects.get(username=request.user)
+                quantity=loan_application.quantity,
+                who_approved=User.objects.get(username=request.user)
             )
             return redirect('dashboard-admin')
         return redirect('dashboard-admin')
