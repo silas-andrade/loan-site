@@ -27,7 +27,7 @@
                     <div class="grid md:grid-cols-2 gap-4">
                         {% for pedido in pedidos %}
                             <div class="bg-white rounded-xl shadow p-4 space-y-2">
-                                <p><strong>Aluno:</strong> {{ pedido.user.full_name }}</p>
+                                <p><strong>Usuário:</strong> {{ pedido.user.full_name }}</p>
                                 <p><strong>Matrícula:</strong> {{ pedido.user.username }}</p>
                                 <p><strong>Item:</strong> {{ pedido.material.name }}</p>
                                 <p><strong>Quantidade:</strong> {{ pedido.quantity }}</p>
@@ -77,7 +77,7 @@
                             <p class="text-sm font-semibold"></p>
                                 
                             <div class="flex gap-2 mt-2">
-                                <form method="post" action="{% url 'aceitar-devolucao' emprestimo.id %}">
+                                <form method="post" action="{% url 'accept-material-return' emprestimo.id %}">
                                     {% csrf_token %}
                                     <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded">Confirmar</button>
                                 </form>

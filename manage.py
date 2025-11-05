@@ -3,6 +3,7 @@
 import os
 import sys
 
+from core.settings import BASE_DIR
 
 def main():
     """Run administrative tasks."""

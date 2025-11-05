@@ -6,7 +6,7 @@ from .models import Loan
 from accounts.models import User
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='/sing-in/')
 def RequestLoan(request):
     form = LoanApplicationForm()
 
@@ -28,7 +28,7 @@ def RequestLoan(request):
     return render(request, "loans/solicitar_emprestimos.html", context)
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='/sing-in/')
 def MakeLoanReturn(request, pk):
     loan = Loan.objects.get(id=pk)
 

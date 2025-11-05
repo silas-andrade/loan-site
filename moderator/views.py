@@ -7,7 +7,7 @@ from loans.models import Loan
 from accounts.models import User
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='/sing-in/')
 def DashboardAdmin(request):
     """
     Mostra aos moderadores todos os pedidos pendentes 
@@ -26,7 +26,7 @@ def DashboardAdmin(request):
         return render(request, "moderator/dashboard.html", context)
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='/sing-in/')
 def ManageUsers(request):
     ...
     """
@@ -45,7 +45,7 @@ def ManageUsers(request):
     return redirect('dashboard') if not request.user.is_staff else redirect('dashboard-admin')
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='/sing-in/')
 def ViewAllLoans(request):
     user = User.objects.get(username=request.user)
     emprestimos_devolvidos = list(
@@ -62,7 +62,7 @@ def ViewAllLoans(request):
     return render(request, "moderator/ver_emprestimos.html", context)
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='/sing-in/')
 def BlockUser(request, pk):
     if not request.user.is_staff:
         return redirect('dashboard')
@@ -78,7 +78,7 @@ def BlockUser(request, pk):
         user.save()
     return redirect('dashboard-admin')
 
-@login_required(login_url='/login/')
+@login_required(login_url='/sing-in/')
 def ViewMaterials(request):
     if request.user.is_staff:
         materias = Material.objects.all()
@@ -90,7 +90,7 @@ def ViewMaterials(request):
         return JsonResponse("<h1>Você não pode entrar aqui!</h1>")
     
 
-@login_required(login_url='/login/')
+@login_required(login_url='/sing-in/')
 def DeleteMaterial(request, pk):
     if request.user.is_staff:
         materiais = Material.objects.get(id=pk)
@@ -100,7 +100,7 @@ def DeleteMaterial(request, pk):
         return JsonResponse("<h1>Você não pode entrar aqui!</h1>")
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='/sing-in/')
 def AcceptMaterialReturn(request, pk):
     if not request.user.is_staff:
         return redirect('dashboard')
@@ -119,7 +119,7 @@ def AcceptMaterialReturn(request, pk):
         return redirect('dashboard-admin')
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='/sing-in/')
 def AcceptLoanApplication(request, pk):
     if not request.user.is_staff:
         return redirect('dashboard')
@@ -146,7 +146,7 @@ def AcceptLoanApplication(request, pk):
         
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='/sing-in/')
 def RejectLoanApplication(request, pk):
     if not request.user.is_staff:
         return redirect('dashboard')

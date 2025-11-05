@@ -16,6 +16,7 @@ from moderator.views import (
     ViewAllLoans
     )
 
+
 urlpatterns = [
     path('admin/', admin.site.urls), 
     

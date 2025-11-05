@@ -1,7 +1,7 @@
 {% extends 'main.html' %}
 {% load static %}
 
-{% block title %}Painel do Aluno{% endblock %}
+{% block title %}Painel do Usuário{% endblock %}
 
 {% block content %}
 <div class="bg-gray-100 text-gray-800">
@@ -17,7 +17,7 @@
     
         <main class="flex-1 px-6 py-8 mt-16 md:mt-0 space-y-12">
     
-            <h1 class="text-3xl font-bold">Bem-vindo(a) ao Painel do Aluno</h1>
+            <h1 class="text-3xl font-bold">Bem-vindo(a) ao Painel do Usuário</h1>
             
             {% if pedidos_pendentes %}
             <section>
@@ -48,7 +48,7 @@
                                     <p><strong>Situação:</strong> Não devolvido</p>
                                     <p><strong>Data e hora prevista da devolução:</strong> {{ loan.expected_return_date|date:"d/m/y H:i:s" }}</p>
                                     <p><strong>Data e hora da criação do pedido:</strong> {{ loan.created_at|date:"d/m/y H:i:s" }}</p>
-                                    <form method="post" action="{% url 'devolver' emprestimo.id %}">
+                                    <form method="post" action="{% url 'return-loan' loan.id %}">
                                         {% csrf_token %}
                                         <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded">Devolver</button>
                                     </form>

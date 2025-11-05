@@ -1,48 +1,61 @@
-/* Fonte e fundo */
+/* ============================
+   ESTILO GERAL
+============================ */
 body {
-    margin: 0;
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: black;
+    background: linear-gradient(135deg, #e9f7ef, #f0f9ff);
+    margin: 0;
+    padding: 0;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #333;
 }
 
-/* Container central */
+/* ============================
+   CONTAINER CENTRAL
+============================ */
 .container-emprestimo {
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    max-width: 500px;
+    margin: 60px auto;
     padding: 20px;
 }
 
-/* Card principal */
+/* ============================
+   CARD PRINCIPAL
+============================ */
 .emprestimos-section {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    padding: 40px 50px;
-    width: 100%;
-    max-width: 480px;
-    color: #fff;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    padding: 40px 35px;
     text-align: center;
-    animation: fadeIn 0.8s ease-in-out;
+    animation: fadeIn 0.6s ease-in-out;
+    transition: all 0.3s ease;
 }
 
-/* Título */
+.emprestimos-section:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+}
+
+/* ============================
+   TÍTULO
+============================ */
 .emprestimos-section h2 {
-    margin-bottom: 25px;
-    font-size: 1.8rem;
+    font-size: 1.9rem;
     font-weight: 600;
-    color: #fff;
+    background: linear-gradient(135deg, #007b55, #00c6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 25px;
 }
 
-/* Campo e rótulo */
+/* ============================
+   FORMULÁRIOS
+============================ */
 .form-group {
     text-align: left;
     margin-bottom: 20px;
@@ -52,85 +65,100 @@ label {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
-    color: #f0f0f0;
+    color: #2e2e2e;
 }
 
-/* Inputs */
+/* ============================
+   INPUTS E SELECTS
+============================ */
 input[type="text"],
 input[type="number"],
 input[type="datetime-local"],
-select {
+select,
+textarea {
     width: 100%;
     padding: 12px;
     border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    border: 1px solid #d1d1d1;
+    background-color: #fafafa;
+    color: #333;
     font-size: 15px;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+    background-color: #fff;
+    border-color: #00b8a9;
 }
 
 input:focus,
-select:focus {
+select:focus,
+textarea:focus {
     outline: none;
     border-color: #00c6ff;
-    box-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
-    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(0, 198, 255, 0.3);
 }
 
-/* Botões principais */
-.btn-enviar,
-.btn-voltar {
-    width: 100%;
-    padding: 14px;
-    display: inline-block;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-align: center;
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 12px;
-    text-decoration: none;
+/* ============================
+   BOTÕES
+============================ */
+.btn-enviar, .btn-voltar { 
+    width: 100%; 
+    padding: 12px; 
+    display: inline-block; 
+    border-radius: 8px; 
+    font-size: 1.05rem; 
+    font-weight: 600; 
+    text-align: center; 
+    color: white; 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+    margin-top: 12px; 
+    border: none; 
 }
 
-/* Botão de enviar */
+/* Botão principal */
 .btn-enviar {
-    background: linear-gradient(135deg, #00c6ff, #007bff);
-    border: none;
+    background: linear-gradient(135deg, #00c6ff, #007b55);
+    box-shadow: 0 4px 10px rgba(0, 198, 255, 0.25);
 }
 
 .btn-enviar:hover {
-    background: linear-gradient(135deg, #0096ff, #0062ff);
+    background: linear-gradient(135deg, #00a6e0, #006f4d);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 18px rgba(0, 198, 255, 0.3);
 }
 
-/* Botão de voltar */
+/* Botão secundário */
 .btn-voltar {
-    background: linear-gradient(135deg, #444, #222);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, #6c757d, #495057);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
 }
 
 .btn-voltar:hover {
-    background: linear-gradient(135deg, #555, #333);
+    background: linear-gradient(135deg, #5a6268, #3e4449);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
 }
 
-/* Erro de campo */
+/* ============================
+   ERRO
+============================ */
 .erro {
-    color: #ffb3b3;
+    color: #d00000;
     font-size: 0.9em;
     margin-top: 4px;
 }
 
-/* Animação de entrada */
+/* ============================
+   ANIMAÇÃO DE ENTRADA
+============================ */
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(8px);
     }
     to {
         opacity: 1;
@@ -138,16 +166,33 @@ select:focus {
     }
 }
 
-/* Responsivo */
+/* ============================
+   HEADER E NAV
+============================ */
+header {
+    background-color: #007b55;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav button {
+    margin: 0 5px;
+}
+
+/* ============================
+   RESPONSIVO
+============================ */
 @media (max-width: 600px) {
     .emprestimos-section {
-        padding: 30px 25px;
+        padding: 30px 20px;
         max-width: 90%;
     }
 
     .btn-enviar,
     .btn-voltar {
         font-size: 1rem;
-        padding: 12px;
+        padding: 11px;
     }
 }

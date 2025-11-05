@@ -44,7 +44,7 @@ def LoginPage(request):
         password = request.POST.get('password')
 
         try:
-            username = User.objects.get(username=username).username
+            username = User.objects.get(username=matricula).username
         except Exception as e:
             messages.error(request, 'Usuário não existe!')
 
@@ -62,13 +62,13 @@ def LoginPage(request):
     return render(request, "accounts/sing-in.html", context)
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='/sing-in/')
 def LogoutUser(request):
     logout(request)
     return redirect('dashboard')
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='/sing-in/')
 def DashboardUser(request):
     print(request.user)
     context = {

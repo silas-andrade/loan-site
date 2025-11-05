@@ -1,7 +1,7 @@
 {% extends 'main.html' %}
 {% load static %}
 
-{% block title %}Painel do Aluno{% endblock %}
+{% block title %}Painel do Usuário{% endblock %}
 
 {% block content %}
 <body class="bg-gray-100 text-gray-800">
@@ -25,7 +25,7 @@
                     <div class="grid md:grid-cols-2 gap-4">
                         {% for emprestimo in emprestimos_nao_devolvidos %}
                             <div class="bg-white rounded-xl shadow p-4 space-y-2">
-                                <p><strong>Aluno:</strong> {{ emprestimo.user.full_name }}</p>
+                                <p><strong>Usuário:</strong> {{ emprestimo.user.full_name }}</p>
                                 <p><strong>Curso:</strong> {{ emprestimo.user.course }}</p>
                                 <p><strong>Item:</strong> {{ emprestimo.material.name }}</p>
                                 <p><strong>Quantidade:</strong> {{ emprestimo.quantity }}</p>
@@ -43,7 +43,7 @@
                     <div class="grid md:grid-cols-2 gap-4">
                         {% for emprestimo in emprestimos_devolvidos %}
                             <div class="bg-white rounded-xl shadow p-4 space-y-2">
-                                <p><strong>Aluno:</strong> {{ emprestimo.user.full_name }}</p>
+                                <p><strong>Usuário:</strong> {{ emprestimo.user.full_name }}</p>
                                 <p><strong>Curso:</strong> {{ emprestimo.user.course }}</p>
                                 <p><strong>Item:</strong> {{ emprestimo.material.nome }}</p>
                                 <p><strong>Quantidade:</strong> {{ emprestimo.quantidade }}</p>
