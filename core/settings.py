@@ -37,6 +37,9 @@ DEBUG = os.getenv("DEBUG")
 
 ALLOWED_HOSTS = ["gremio-emprestimos.onrender.com", "127.0.0.1"]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://gremio-emprestimos.onrender.com'
+]
 
 # Application definition
 
