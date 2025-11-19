@@ -13,9 +13,9 @@ import os
 from pathlib import Path
 
 
+from dotenv import load_dotenv
 
-
-
+load_dotenv()
 
 # Acessando as variáveis de ambiente
 
