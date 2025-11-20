@@ -60,6 +60,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -101,19 +102,26 @@ if DEBUG:
         }
     }
 else:
-        tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
+        
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.postgresql',
-                'NAME': tmpPostgres.path.replace('/', ''),
-                'USER': tmpPostgres.username,
-                'PASSWORD': tmpPostgres.password,
-                'HOST': tmpPostgres.hostname,
-                'PORT': 5432,
-                'OPTIONS': dict(parse_qsl(tmpPostgres.query)),
-            }
+    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
+    # and renames the files with unique names for each version to support long-term caching
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+    tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': tmpPostgres.path.replace('/', ''),
+            'USER': tmpPostgres.username,
+            'PASSWORD': tmpPostgres.password,
+            'HOST': tmpPostgres.hostname,
+            'PORT': 5432,
+            'OPTIONS': dict(parse_qsl(tmpPostgres.query)),
         }
+    }
 
 
 
