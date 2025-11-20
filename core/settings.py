@@ -35,10 +35,10 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 
 
-ALLOWED_HOSTS = ["gremio-emprestimos.onrender.com", "127.0.0.1"]
+ALLOWED_HOSTS = ["loan-site-pgch.onrender.com", "127.0.0.1"]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://gremio-emprestimos.onrender.com'
+    'https://loan-site-pgch.onrender.com'
 ]
 
 # Application definition
