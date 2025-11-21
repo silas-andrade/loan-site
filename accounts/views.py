@@ -70,7 +70,7 @@ def LogoutUser(request):
 
 @login_required(login_url='/sing-in/')
 def DashboardUser(request):
-    print(request.user)
+
     context = {
             'pedidos_pendentes':LoanApplication.objects.filter(
                 user=User.objects.get(username=request.user), 

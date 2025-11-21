@@ -5,6 +5,7 @@ from moderator.forms import LoanApplicationForm
 from .models import Loan
 from accounts.models import User
 
+import datetime
 
 @login_required(login_url='/sing-in/')
 def RequestLoan(request):
@@ -31,9 +32,11 @@ def RequestLoan(request):
 @login_required(login_url='/sing-in/')
 def MakeLoanReturn(request, pk):
     loan = Loan.objects.get(id=pk)
-
-    if loan.user.username == request.user:
-        loan.returned = True
+    print(type(request.user.username))
+    print(type(loan.user.username))
+    if request.user.username == loan.user.username:
+        loan.is_returned = True
+        loan.date_returned = datetime.now()
         loan.save()
         return redirect('dashboard')
     else:

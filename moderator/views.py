@@ -108,7 +108,6 @@ def AcceptMaterialReturn(request, pk):
         loan = Loan.objects.get(id=pk)
         if loan.is_returned:
             loan.return_confirmed = True
-            loan.date_returned = datetime.now()
             loan.save()
 
             material = Material.objects.get(nome=loan.material)
@@ -126,6 +125,7 @@ def AcceptLoanApplication(request, pk):
     else:
         loan_application = LoanApplication.objects.get(id=pk)
         material = Material.objects.get(name=loan_application.material.name)
+
         if loan_application.is_pending and material.available_quantity >= loan_application.quantity and loan_application.quantity > 0:
             loan_application.is_pending = False
             loan_application.is_approved = True

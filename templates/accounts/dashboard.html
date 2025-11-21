@@ -41,8 +41,8 @@
                         {% if loans %}
                             {% for loan in loans %}
                                 <div class="bg-white rounded-xl shadow p-4 space-y-2">
-                                    <p><strong>Item:</strong> {{ loan.material.nome }}</p>
-                                    <p><strong>Quantidade:</strong> {{ loan.quantidade }}</p>
+                                    <p><strong>Item:</strong> {{ loan.material.name }}</p>
+                                    <p><strong>Quantidade:</strong> {{ loan.qunatity }}</p>
 
                                     {% if not loan.is_return_confirmed %}
                                     <p><strong>Situação:</strong> Não devolvido</p>
@@ -55,8 +55,8 @@
 
                                     {% else %}
                                     <p><strong>Situação:</strong> Devolvido</p>
-                                    <p><strong>Data e hora da devolução:</strong> {{ emprestimo.data_devolvida|date:"d/m/y H:i:s" }}</p>
-                                    <p><strong>Data e hora da criação do pedido:</strong> {{ emprestimo.created|date:"d/m/y H:i:s" }}</p>
+                                    <p><strong>Data e hora da devolução:</strong> {{ emprestimo.date_returned|date:"d/m/y H:i:s" }}</p>
+                                    <p><strong>Data e hora da criação do pedido:</strong> {{ emprestimo.created_at|date:"d/m/y H:i:s" }}</p>
                                     {% endif %}
         
                                 </div>
